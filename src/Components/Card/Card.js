@@ -6,6 +6,7 @@ import './Card.css'
 
 import { BsHeart, BsHeartFill } from 'react-icons/bs'
 import { MdOutlineShoppingCart } from 'react-icons/md'
+import { AiOutlineZoomIn } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../redux/features/cartSlice'
 import { addToFavorites } from '../../redux/features/favouriteSlice'
@@ -43,7 +44,7 @@ const Card = ({ cardInfo }) => {
 	}, [cartItems, favouriteItems])
 
 	return (
-		<div className='card' key={cardInfo.id}>
+		<div className='card'>
 			<div className='card__img'>
 				<LazyLoadImage
 					src={cardInfo.photo}
@@ -57,21 +58,7 @@ const Card = ({ cardInfo }) => {
 					to={`/category/${cardInfo.category.slug}/${cardInfo.slug}`}
 					className='card__overlay'
 				>
-					<svg
-						xmlns='http://www.w3.org/2000/svg'
-						width='51'
-						height='53'
-						viewBox='0 0 51 53'
-					>
-						<g>
-							<g>
-								<path
-									fill='#fff'
-									d='M28.942 21.014a1 1 0 0 1-.998 1h-5.989v6.004a1 1 0 0 1-.998 1 1 1 0 0 1-.998-1v-6.004h-5.988a1 1 0 0 1 0-2.001h5.988v-6.004a1 1 0 0 1 .998-1 1 1 0 0 1 .998 1v6.004h5.989a1 1 0 0 1 .998 1zm21.65 31.706a.994.994 0 0 1-1.41-.028l-14.867-15.5a20.83 20.83 0 0 1-13.358 4.835C9.4 42.027-.002 32.6-.002 21.014-.002 9.426 9.4 0 20.958 0c11.557 0 20.959 9.425 20.959 21.013a20.973 20.973 0 0 1-6.127 14.829l14.83 15.462c.382.398.37 1.032-.027 1.415zM20.958 40.025c10.457 0 18.963-8.528 18.963-19.011 0-10.484-8.506-19.012-18.963-19.012-10.456 0-18.963 8.528-18.963 19.012 0 10.483 8.507 19.011 18.963 19.011z'
-								/>
-							</g>
-						</g>
-					</svg>
+					<AiOutlineZoomIn style={{ fontSize: '60px', color: '#fff' }} />
 				</Link>
 			</div>
 			<div className='card__wrapper'>

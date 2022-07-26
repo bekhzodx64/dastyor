@@ -1,19 +1,15 @@
-import React, { useContext, useEffect } from 'react'
-import './Category.css'
-import CategoriesContext from '../../Context/CategoriesContext'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import Categories from '../../Components/Categories'
 import Spinner from '../../Components/Spinner'
+import './Category.css'
 
 import { useGetCategoriesQuery } from '../../redux/api/categoriesApi'
 
 const CategoryPage = () => {
-	// const { categories } = useContext(CategoriesContext);
-	const { data: categories, isLoading } = useGetCategoriesQuery([])
+	const { data: categories, isLoading: categoryIsLoading } =
+		useGetCategoriesQuery([])
 
-	window.scrollTo(null, 0)
-
-	if (isLoading) {
+	if (categoryIsLoading) {
 		return <Spinner />
 	}
 

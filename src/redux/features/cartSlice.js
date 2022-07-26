@@ -27,7 +27,7 @@ const cartSlice = createSlice({
 			if (itemIndex >= 0) {
 				state.cartItems = nextCartItems
 			} else {
-				const tempProduct = { ...action.payload, count: 1 }
+				const tempProduct = { ...action.payload, count: 1, color: 1 }
 				state.cartItems.push(tempProduct)
 			}
 

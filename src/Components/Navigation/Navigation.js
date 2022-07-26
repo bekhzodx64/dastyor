@@ -25,8 +25,6 @@ const Navigation = () => {
 	const [openLanguage, setOpenLanguage] = useState(false)
 	const [term, setTerm] = useState('')
 	const [currLang, setCurrLang] = useState('Русский')
-	const { basket } = useContext(BasketContext)
-	const { favorite } = useContext(FavoriteContext)
 	const { translation } = useContext(TranslationContext)
 	const { setCategoryOpen } = useContext(MenuContext)
 	const { authenticated } = useContext(AuthenticationContext)

@@ -11,21 +11,32 @@ import HomePageContent from './HomePageContent'
 import { useGetBannersQuery } from '../../redux/api/bannersApi'
 import {
 	useGetProductsQuery,
+	useGetLatestProductsQuery,
 	useGetTopSellerProductsQuery,
 	useGetMostCommonProductsQuery,
 } from '../../redux/api/productsApi'
 
 SwiperCore.use([Pagination])
 
-const HomePage = () => {
-	const { data: products, isLoading } = useGetProductsQuery([])
-	const { data: topSeller, isLoading: isLoadingTopSeller } =
-		useGetTopSellerProductsQuery([])
-	const { data: mostCommon, isLoading: isLoadingMostCommon } =
-		useGetMostCommonProductsQuery([])
-	const { data: banners } = useGetBannersQuery([])
+const pagination = {
+	clickable: true,
+}
 
-	if (isLoading) {
+const HomePage = () => {
+	const { isLoading: productsIsLoading } = useGetProductsQuery([])
+
+	const { data: latest, isLoading: latestIsLoading } =
+		useGetLatestProductsQuery([])
+
+	const { data: topSeller, isLoading: topSellerIsLoading } =
+		useGetTopSellerProductsQuery([])
+
+	const { data: mostCommon, isLoading: mostCommonIsLoading } =
+		useGetMostCommonProductsQuery([])
+
+	const { data: banners, isLoading: bannersIsLoading } = useGetBannersQuery([])
+
+	if (productsIsLoading) {
 		return <Spinner />
 	}
 
@@ -38,40 +49,46 @@ const HomePage = () => {
 							<Categories />
 						</div>
 						<div className='col-lg-9 col-md-12'>
-							<Swiper
-								pagination={{
-									clickable: true,
-								}}
-								loop={true}
-								autoplay={true}
-							>
-								{banners.map(({ photo }, index) => (
-									<SwiperSlide key={`${photo}_${index}`}>
-										<div
-											className='home__carousel'
-											style={{ backgroundImage: `url(${photo})` }}
-										>
-											<Link to='/'>Купить</Link>
-										</div>
-									</SwiperSlide>
-								))}
+							<Swiper pagination={pagination} loop={true} autoplay={true}>
+								{bannersIsLoading ? (
+									<Spinner />
+								) : (
+									banners.map(({ photo }, index) => (
+										<SwiperSlide key={`${photo}_${index}`}>
+											<div
+												className='home__carousel'
+												style={{ backgroundImage: `url(${photo})` }}
+											>
+												<Link to='/'>Купить</Link>
+											</div>
+										</SwiperSlide>
+									))
+								)}
 							</Swiper>
 						</div>
 					</div>
 				</div>
-				<HomePageContent
-					title={'Новые товары'}
-					number={1}
-					products={products}
-				/>
-				{!isLoadingTopSeller && (
+				{latestIsLoading ? (
+					<Spinner />
+				) : (
+					<HomePageContent
+						title={'Новые товары'}
+						number={1}
+						products={latest}
+					/>
+				)}
+				{topSellerIsLoading ? (
+					<Spinner />
+				) : (
 					<HomePageContent
 						title={'Самые продаваемые товары'}
 						number={2}
 						products={topSeller}
 					/>
 				)}
-				{!isLoadingMostCommon && (
+				{mostCommonIsLoading ? (
+					<Spinner />
+				) : (
 					<HomePageContent
 						title={'Рекомендуемые'}
 						number={3}
