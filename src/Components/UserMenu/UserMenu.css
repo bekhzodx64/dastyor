@@ -1,0 +1,68 @@
+.user-menu {
+	padding: 40px 0;
+}
+
+.user__info {
+	display: flex;
+	align-items: center;
+
+	margin-bottom: 5px;
+}
+
+.user__info img {
+	width: 63px;
+	height: 63px;
+	margin-right: 20px;
+
+	border-radius: 100%;
+	object-fit: contain;
+	object-position: center;
+}
+
+.user__info h3 {
+	margin: 0;
+
+	text-transform: uppercase;
+
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 20px;
+}
+
+.user__link {
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	margin-bottom: 2px;
+	padding: 10px 0;
+
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-decoration: none;
+
+	color: var(--second-color);
+
+	font-size: 15px;
+}
+
+.user__link svg {
+	width: 25px;
+	height: 20px;
+	margin-right: 10px;
+
+	transition: all 0.3s ease;
+}
+
+.user__link:hover {
+	color: white;
+	background-color: var(--main-color);
+}
+
+.user__link:hover svg {
+	fill: white;
+}
+
+.user__link:last-child {
+	margin-bottom: 0;
+}

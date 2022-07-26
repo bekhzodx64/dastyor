@@ -1,0 +1,73 @@
+.overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	display: flex;
+	visibility: visible;
+	align-items: center;
+	justify-content: center;
+
+	transition: opacity 500ms;
+
+	opacity: 1;
+	background: rgb(0 0 0 / 70%);
+}
+
+.popup {
+	position: relative;
+
+	display: inline-block;
+
+	width: 30%;
+	padding: 20px;
+
+	transition: all 5s ease-in-out;
+
+	background: #FFF;
+}
+
+.popup h2 {
+	margin-top: 0;
+
+	color: #333;
+
+	font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+
+	cursor: pointer;
+	transition: all 200ms;
+	text-decoration: none;
+
+	color: #333;
+
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.popup .close:hover {
+	color: var(--main-color);
+}
+
+.popup .content {
+	overflow: auto;
+
+	max-height: 30%;
+}
+
+@media screen and (max-width: 700px) {
+	.box {
+		width: 70%;
+	}
+
+	.popup {
+		width: 70%;
+	}
+}

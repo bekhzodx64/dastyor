@@ -1,0 +1,226 @@
+.login-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	height: 80vh;
+	padding: 0 15px;
+}
+
+.contact-wrapper {
+	width: 25em;
+	padding: 2em;
+
+	background: #FFF;
+	box-shadow: 0 2px 11px 0 rgb(0 0 0 / 5%);
+}
+
+.login-cta > h2 {
+	text-align: center;
+
+	color: #3E3F5E;
+
+	font-size: 1.75rem;
+}
+
+.socials-wrapper > header > h2 {
+	position: relative;
+	z-index: 1;
+
+	text-align: center;
+
+	color: #3E3F5E;
+	background: #FFF;
+
+	font-size: 1rem;
+}
+
+.socials-wrapper > header > h2::after,
+.socials-wrapper > header > h2::before {
+	position: absolute;
+	top: 50%;
+
+	display: block;
+
+	width: 17.5%;
+	height: 0.1em;
+
+	content: "";
+	transform: translateY(-50%);
+
+	background: #D3D3E2;
+}
+
+.socials-wrapper > header > h2::after {
+	right: 0;
+}
+
+.socials-wrapper > header > h2::before {
+	left: 0;
+}
+
+.socials-wrapper > ul {
+	display: flex;
+	justify-content: center;
+
+	padding: 0;
+
+	list-style: none;
+}
+
+.socials-wrapper > ul > li {
+	margin: 0.5em;
+}
+
+.socials-wrapper > ul > li > a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 2em;
+	height: 2em;
+
+	transition: all 300ms ease;
+	text-align: center;
+	text-decoration: none;
+
+	color: #FFF;
+}
+
+.socials-wrapper > ul > li > a.facebook {
+	background-color: #3763D2;
+}
+
+.socials-wrapper > ul > li > a.twitter {
+	background-color: #1ABCFF;
+}
+
+.socials-wrapper > ul > li > a.twitch {
+	background-color: #7B5DFA;
+}
+
+.socials-wrapper > ul > li > a.youtube {
+	background-color: white;
+}
+
+.socials-wrapper > ul > li > a:hover {
+	transform: translateY(-0.25em);
+}
+
+.login-page form {
+	margin: 1em 0;
+}
+
+.login-page form > .form-row {
+	position: relative;
+
+	display: flex;
+
+	margin: 0.75em 0;
+}
+
+.login-page form > .form-row > span {
+	position: absolute;
+	top: 50%;
+	left: 1em;
+
+	display: inline-block;
+
+	padding: 0 0.5em;
+
+	user-select: none;
+	user-select: none;
+	user-select: none;
+	user-select: none;
+	transition: all 300ms ease;
+	transform: translateY(-50%);
+	pointer-events: none;
+
+	color: #ADAFCA;
+	background: #FFF;
+
+	font-size: 15px;
+	font-weight: 400;
+}
+
+.login-page form > .form-row > input,
+form > .form-row > button {
+	width: 100%;
+	padding: 10px;
+
+	font-family: inherit;
+}
+
+.login-page form > .form-row > input {
+	width: 100%;
+
+	transition: 100ms ease all;
+}
+
+.login-page form > .form-row > input[type="text"],
+form > .form-row > input[type="password"],
+.login-page form > .form-row > input[type="text"],
+form > .form-row > input[type="email"] {
+	border: 0.075em solid #DDD;
+}
+
+.login-page form > .form-row > input:valid + span {
+	top: 0;
+	left: 12px;
+
+	font-size: 0.9rem;
+}
+
+.login-page form > .form-row > input:invalid + span {
+	top: 50%;
+}
+
+.login-page form > .form-row > input:focus + span {
+	top: 0;
+	left: 12px;
+}
+
+.login-page form > .form-row > input:required {
+	box-shadow: none;
+}
+
+.login-page form > .form-row > input:focus {
+	border-color: var(--main-color);
+	outline: none;
+}
+
+.login-page form > .form-row > input:focus:invalid {
+	top: 50%;
+
+	box-shadow: none;
+}
+
+.login-page form > .form-row > input:focus:valid {
+	top: 0;
+	left: 12px;
+}
+
+.login-page form > .form-row > button {
+	cursor: pointer;
+	transition: all 300ms ease;
+
+	color: #FFF;
+	border: 0.1em solid var(--main-color);
+	background-color: var(--main-color);
+}
+
+.login-page form > .form-row > button:focus {
+	border: 0.1em solid var(--main-color);
+	outline: none;
+}
+
+.login-page form > .form-row > button:hover {
+	background-color: var(--main-color);
+}
+
+.error__field {
+	color: tomato;
+
+	font-size: 12px;
+}

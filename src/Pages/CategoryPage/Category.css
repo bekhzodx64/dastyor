@@ -1,0 +1,54 @@
+.category-page {
+	padding: 60px 0;
+}
+
+.category__card {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+
+	height: 150px;
+
+	transition: all 0.3s ease;
+	text-decoration: none;
+
+	background-color: #FFF;
+}
+
+.category__img {
+	width: 50px;
+	height: 50px;
+}
+
+.category__img img {
+	width: 100%;
+	height: 100%;
+
+	transition: all 0.3s ease;
+
+	opacity: 0.6;
+}
+
+.category__card h4 {
+	margin-top: 25px;
+
+	transition: all 0.3s ease;
+	text-transform: capitalize;
+
+	color: #385170;
+}
+
+.category__card:hover {
+	background-color: var(--main-color);
+}
+
+.category__card:hover h4 {
+	color: white;
+}
+
+.category__card:hover img {
+	filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
+
+	opacity: 1;
+}
