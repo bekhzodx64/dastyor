@@ -15,7 +15,9 @@ const DetailCarousel = ({ data }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null)
 
 	const [icon, setIcon] = useState(false)
-	const favouriteItems = useSelector((state) => state.favourite.favourites)
+	const favouriteItems = useSelector(
+		(state) => state.favouriteReducer.favourites
+	)
 
 	const handleAddToFavourites = () => {
 		dispatch(addToFavorites(data))

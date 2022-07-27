@@ -9,6 +9,7 @@ import {
 	increaseCartItemQuantity,
 	decreaseCartItemQuantity,
 } from '../../redux/features/cartSlice'
+import { useParams } from 'react-router-dom'
 import { IoAdd, IoRemove } from 'react-icons/io5'
 import { MdOutlineShoppingCart } from 'react-icons/md'
 import { BiShare } from 'react-icons/bi'
@@ -19,10 +20,11 @@ const DetailInfo = ({ data, starRated, comments, setModal }) => {
 
 	const dispatch = useDispatch()
 	const [button, setButton] = useState(false)
-	const cartItems = useSelector((state) => state.cart.cartItems)
+	const cartItems = useSelector((state) => state.cartReducer.cartItems)
 
 	useEffect(() => {
 		const cartItemIndex = cartItems.find((item) => item.id === data.id)
+
 		setButton(cartItemIndex)
 	}, [cartItems])
 

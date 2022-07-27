@@ -5,8 +5,6 @@ import './Navigation.css'
 import logo from '../../Assets/Images/logo.png'
 import AuthenticationContext from '../../Context/AuthenticationContext'
 import MenuContext from '../../Context/MenuContext'
-import BasketContext from '../../Context/BasketContext'
-import FavoriteContext from '../../Context/FavoriteContext'
 import TranslationContext from '../../Context/TranslationContext'
 import Search from '../Search'
 import LocationContext from '../../Context/LocationContext'
@@ -18,6 +16,8 @@ import {
 	favouritesHandler,
 	getFavouritesTotal,
 } from '../../redux/features/favouriteSlice'
+import { BsHeart } from 'react-icons/bs'
+import { MdOutlineShoppingCart } from 'react-icons/md'
 
 const Navigation = () => {
 	const dispatch = useDispatch()
@@ -54,9 +54,11 @@ const Navigation = () => {
 		}
 	}, [openCountry])
 
-	const { cartTotalCount, cartItems } = useSelector((state) => state.cart)
+	const { cartTotalCount, cartItems } = useSelector(
+		(state) => state.cartReducer
+	)
 	const { favouritesTotalCount, favourites } = useSelector(
-		(state) => state.favourite
+		(state) => state.favouriteReducer
 	)
 
 	useEffect(() => {
@@ -255,40 +257,16 @@ const Navigation = () => {
 						<div className='user__actions'>
 							<div onClick={() => dispatch(favouritesHandler(true))}>
 								<span data-quantity={favouritesTotalCount}>
-									<svg
-										width='19'
-										stroke='red'
-										height='17'
-										viewBox='0 0 19 17'
-										fill='none'
-										xmlns='http://www.w3.org/2000/svg'
-									>
-										<path
-											d='M8.84206 3.65269L9.49998 4.85507L10.1579 3.6527C10.4263 3.16234 10.87 2.51283 11.516 2.01324L11.0572 1.41997L11.516 2.01324C12.177 1.50203 12.9119 1.25 13.7188 1.25C15.9741 1.25 17.75 3.08517 17.75 5.68604C17.75 7.05237 17.2118 8.2334 16.1551 9.50847C15.0794 10.8065 13.5256 12.1339 11.5674 13.8026L11.5674 13.8026L11.5668 13.8031C10.9425 14.3352 10.2362 14.937 9.50002 15.5792C8.76434 14.9375 8.0585 14.336 7.43485 13.8045L7.43304 13.803L7.43303 13.8029C5.47464 12.134 3.92068 10.8065 2.84494 9.50851C1.78821 8.2334 1.25 7.05236 1.25 5.68604C1.25 3.08517 3.02595 1.25 5.28125 1.25C6.08809 1.25 6.82298 1.50203 7.48399 2.01324L7.94282 1.41997L7.484 2.01324C8.12998 2.51284 8.57373 3.16231 8.84206 3.65269Z'
-											strokeWidth='1.5'
-										/>
-									</svg>
+									<BsHeart style={{ color: '#ff5234', fontSize: '20px' }} />
 								</span>
 								<li>Избранные</li>
 							</div>
 
 							<div onClick={() => dispatch(cartHandler(true))}>
 								<span data-quantity={cartTotalCount}>
-									<svg
-										xmlns='http://www.w3.org/2000/svg'
-										width='20'
-										height='19'
-										viewBox='0 0 20 19'
-									>
-										<g>
-											<g>
-												<path
-													fill='#ff5234'
-													d='M10.14 17.157c0 .994-.79 1.803-1.76 1.803s-1.76-.81-1.76-1.803c0-.995.79-1.803 1.76-1.803s1.76.808 1.76 1.803zm-.983 0a.788.788 0 0 0-.777-.797.788.788 0 0 0-.778.796c0 .44.35.797.778.797a.788.788 0 0 0 .777-.797zm7.155 0c0 .994-.79 1.803-1.76 1.803s-1.76-.81-1.76-1.803c0-.995.79-1.803 1.76-1.803.971 0 1.76.808 1.76 1.803zm-.982 0a.788.788 0 0 0-.777-.797.788.788 0 0 0-.778.796c0 .44.349.797.778.797a.788.788 0 0 0 .777-.797zm.147-10.793c0 .278-.22.503-.491.503h-7.04a.498.498 0 0 1-.492-.503c0-.278.22-.504.491-.504h7.04c.272 0 .492.226.492.504zm-.383 2.614c0 .278-.22.503-.491.503H8.328a.497.497 0 0 1-.49-.503c0-.278.22-.503.49-.503h6.275c.271 0 .49.225.49.503zm4.885-4.521l-1.374 6.834a.992.992 0 0 1-.962.804H5.492l.29 1.438h11.77c.27 0 .49.225.49.503s-.22.503-.49.503H5.78a.992.992 0 0 1-.962-.803L2.44 1.913.285.954A.508.508 0 0 1 .03.292.487.487 0 0 1 .676.03l2.157.96c.293.13.506.4.57.72l.31 1.537h15.304a.97.97 0 0 1 .761.37c.188.236.261.542.201.84zm-.962-.203H3.915l1.375 6.834h12.353z'
-												/>
-											</g>
-										</g>
-									</svg>
+									<MdOutlineShoppingCart
+										style={{ color: '#ff5234', fontSize: '20px' }}
+									/>
 								</span>
 								<li>Корзина</li>
 							</div>

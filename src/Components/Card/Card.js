@@ -16,10 +16,13 @@ import { useState, useEffect } from 'react'
 const Card = ({ cardInfo }) => {
 	const dispatch = useDispatch()
 
-	const [button, setButton] = useState(false)
+	const [button, setButton] = useState([])
 	const [icon, setIcon] = useState(false)
-	const cartItems = useSelector((state) => state.cart.cartItems)
-	const favouriteItems = useSelector((state) => state.favourite.favourites)
+
+	const cartItems = useSelector((state) => state.cartReducer.cartItems)
+	const favouriteItems = useSelector(
+		(state) => state.favouriteReducer.favourites
+	)
 
 	const handleAddToCart = () => {
 		dispatch(addToCart(cardInfo))

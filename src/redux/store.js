@@ -7,11 +7,11 @@ import favouriteReducer from './features/favouriteSlice'
 
 export const store = configureStore({
 	reducer: {
+		cartReducer,
+		favouriteReducer,
 		[productsApi.reducerPath]: productsApi.reducer,
 		[bannersApi.reducerPath]: bannersApi.reducer,
 		[categoriesApi.reducerPath]: categoriesApi.reducer,
-		cart: cartReducer,
-		favourite: favouriteReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(productsApi.middleware),

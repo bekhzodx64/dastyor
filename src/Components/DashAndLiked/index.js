@@ -1,12 +1,12 @@
-import Aside from '../Aside';
+import Aside from '../Aside'
 
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 const DashAndLiked = () => {
-	const { cartItems, showCart } = useSelector((state) => state.cart);
+	const { cartItems, showCart } = useSelector((state) => state.cartReducer)
 	const { favourites, showFavourites } = useSelector(
-		(state) => state.favourite
-	);
+		(state) => state.favouriteReducer
+	)
 
 	return (
 		<>
@@ -24,7 +24,7 @@ const DashAndLiked = () => {
 				showCart={showCart}
 			/>
 		</>
-	);
-};
+	)
+}
 
-export default DashAndLiked;
+export default DashAndLiked

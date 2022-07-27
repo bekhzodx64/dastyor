@@ -25,8 +25,8 @@ const Aside = ({
 	showFavourites,
 	favourites,
 }) => {
-	const cart = useSelector((state) => state.cart)
-	const favourite = useSelector((state) => state.favourite)
+	const cart = useSelector((state) => state.cartReducer)
+	const favourite = useSelector((state) => state.favouriteReducer)
 	const dispatch = useDispatch()
 
 	const navigate = useNavigate()
