@@ -8,13 +8,12 @@ import Spinner from '../../Components/Spinner'
 import './HomePage.css'
 import HomePageContent from './HomePageContent'
 
-import { useGetBannersQuery } from '../../redux/api/bannersApi'
 import {
-	useGetProductsQuery,
+	useGetBannersQuery,
 	useGetLatestProductsQuery,
 	useGetTopSellerProductsQuery,
 	useGetMostCommonProductsQuery,
-} from '../../redux/api/productsApi'
+} from '../../redux/api/apiSlice'
 
 SwiperCore.use([Pagination])
 
@@ -23,8 +22,6 @@ const pagination = {
 }
 
 const HomePage = () => {
-	const { isLoading: productsIsLoading } = useGetProductsQuery([])
-
 	const { data: latest, isLoading: latestIsLoading } =
 		useGetLatestProductsQuery([])
 
@@ -35,10 +32,6 @@ const HomePage = () => {
 		useGetMostCommonProductsQuery([])
 
 	const { data: banners, isLoading: bannersIsLoading } = useGetBannersQuery([])
-
-	if (productsIsLoading) {
-		return <Spinner />
-	}
 
 	return (
 		<section className='home-page'>

@@ -1,10 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { API_URL } from '../../config'
 
-export const productsApi = createApi({
-	reducerPath: 'products',
+export const apiSlice = createApi({
+	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
 	endpoints: (build) => ({
+		getBanners: build.query({
+			query: () => '/banners/',
+		}),
+		getCategories: build.query({
+			query: () => '/categories/',
+		}),
 		getProducts: build.query({
 			query: () => '/products/',
 		}),
@@ -21,8 +27,10 @@ export const productsApi = createApi({
 })
 
 export const {
+	useGetBannersQuery,
+	useGetCategoriesQuery,
 	useGetProductsQuery,
 	useGetLatestProductsQuery,
 	useGetTopSellerProductsQuery,
 	useGetMostCommonProductsQuery,
-} = productsApi
+} = apiSlice

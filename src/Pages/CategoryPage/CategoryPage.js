@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Spinner from '../../Components/Spinner'
 import './Category.css'
 
-import { useGetCategoriesQuery } from '../../redux/api/categoriesApi'
+import { useGetCategoriesQuery } from '../../redux/api/apiSlice'
 
 const CategoryPage = () => {
 	const { data: categories, isLoading: categoryIsLoading } =
