@@ -255,14 +255,14 @@ const Navigation = () => {
 						</Link>
 						<Search term={term} setTerm={setTerm} onSubmit={onSubmit} />
 						<div className='user__actions'>
-							<div onClick={() => dispatch(favouritesHandler(true))}>
+							<div onClick={() => dispatch(favouritesHandler())}>
 								<span data-quantity={favouritesTotalCount}>
 									<BsHeart style={{ color: '#ff5234', fontSize: '20px' }} />
 								</span>
 								<li>Избранные</li>
 							</div>
 
-							<div onClick={() => dispatch(cartHandler(true))}>
+							<div onClick={() => dispatch(cartHandler())}>
 								<span data-quantity={cartTotalCount}>
 									<MdOutlineShoppingCart
 										style={{ color: '#ff5234', fontSize: '20px' }}

@@ -12,8 +12,8 @@ const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		cartHandler: (state, action) => {
-			state.showCart = action.payload
+		cartHandler: (state) => {
+			state.showCart = !state.showCart
 		},
 		addToCart: (state, action) => {
 			const itemIndex = state.cartItems.findIndex(

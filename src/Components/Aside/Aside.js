@@ -70,7 +70,7 @@ const Aside = ({
 						<div className='aside__header'>
 							<h4>{title}</h4>
 							<svg
-								onClick={() => dispatch(cartHandler(false))}
+								onClick={() => dispatch(cartHandler())}
 								xmlns='http://www.w3.org/2000/svg'
 								viewBox='0 0 24 24'
 								width='24'
@@ -213,7 +213,7 @@ const Aside = ({
 					</div>
 					<div
 						className='aside__overlay'
-						onClick={() => dispatch(cartHandler(false))}
+						onClick={() => dispatch(cartHandler())}
 					/>
 				</>
 			)}
@@ -223,7 +223,7 @@ const Aside = ({
 						<div className='aside__header'>
 							<h4>{title}</h4>
 							<svg
-								onClick={() => dispatch(favouritesHandler(false))}
+								onClick={() => dispatch(favouritesHandler())}
 								xmlns='http://www.w3.org/2000/svg'
 								viewBox='0 0 24 24'
 								width='24'
@@ -319,7 +319,7 @@ const Aside = ({
 					</div>
 					<div
 						className='aside__overlay'
-						onClick={() => dispatch(favouritesHandler(false))}
+						onClick={() => dispatch(favouritesHandler())}
 					/>
 				</>
 			)}

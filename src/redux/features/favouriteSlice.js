@@ -12,8 +12,8 @@ const favouriteSlice = createSlice({
 	name: 'favourite',
 	initialState,
 	reducers: {
-		favouritesHandler: (state, action) => {
-			state.showFavourites = action.payload
+		favouritesHandler: (state) => {
+			state.showFavourites = !state.showFavourites
 		},
 		addToFavorites: (state, action) => {
 			const itemIndex = state.favourites.findIndex(
