@@ -1,21 +1,30 @@
 import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import CategoriesContext from '../../Context/CategoriesContext'
 import Search from '../Search'
 import MenuContext from '../../Context/MenuContext'
+import Spinner from '../Spinner'
 import './Categories.css'
 
+import { useGetCategoriesQuery } from '../../redux/api/apiSlice'
 import { IoClose } from 'react-icons/io5'
+import { RiImageFill } from 'react-icons/ri'
+import { HiChevronRight } from 'react-icons/hi'
+import { FaPlusCircle } from 'react-icons/fa'
 
 const Categories = () => {
+	const { data: categories, isLoading } = useGetCategoriesQuery([])
+
 	const { categoryOpen, setCategoryOpen } = useContext(MenuContext)
-	const { categories } = useContext(CategoriesContext)
 	const [term, setTerm] = useState('')
 	const navigate = useNavigate()
 
 	function onSubmit(e) {
 		e.preventDefault()
 		navigate(`/product/search?q=${term}`)
+	}
+
+	if (isLoading) {
+		return <Spinner />
 	}
 
 	return (
@@ -39,29 +48,13 @@ const Categories = () => {
 									{category.icon != null ? (
 										<img src={category.icon} alt={category.title} />
 									) : (
-										<svg
-											xmlns='http://www.w3.org/2000/svg'
-											viewBox='0 0 24 24'
-											width='24'
-											height='24'
-										>
-											<path fill='none' d='M0 0h24v24H0z' />
-											<path d='M21 19h2v2H1v-2h2V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v15h4v-8h-2V9h3a1 1 0 0 1 1 1v9zM5 5v14h8V5H5zm2 6h4v2H7v-2zm0-4h4v2H7V7z' />
-										</svg>
+										<RiImageFill style={{ fontSize: '20px' }} />
 									)}
 								</span>
 								<span>{category.title}</span>
 								{category.children == null ? null : (
 									<span className='chevron__right'>
-										<svg
-											xmlns='http://www.w3.org/2000/svg'
-											viewBox='0 0 24 24'
-											width='24'
-											height='24'
-										>
-											<path fill='none' d='M0 0h24v24H0z' />
-											<path d='M13.172  12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z' />
-										</svg>
+										<HiChevronRight />
 									</span>
 								)}
 							</NavLink>
@@ -81,30 +74,7 @@ const Categories = () => {
 					<li>
 						<NavLink to='/category'>
 							<span style={{ opacity: '1' }}>
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									xmlnsXlink='http://www.w3.org/1999/xlink'
-									width='14'
-									height='14'
-									viewBox='0 0 14 14'
-								>
-									<g>
-										<g>
-											<path
-												fill='#ff5234'
-												d='M7 0a7 7 0 1 1 0 14A7 7 0 0 1 7 0z'
-											/>
-										</g>
-										<g>
-											<image
-												width='8'
-												height='8'
-												transform='translate(3 3)'
-												xlinkHref='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAACpJREFUKFNjZEAC/////w/iMjIyMsKE4QyQAHkKYLqQrUJmMxJUQHtHAgAhWyABIHofDgAAAABJRU5ErkJggg=='
-											/>
-										</g>
-									</g>
-								</svg>
+								<FaPlusCircle style={{ color: '#ff5234' }} />
 							</span>
 							<span>Всё</span>
 						</NavLink>

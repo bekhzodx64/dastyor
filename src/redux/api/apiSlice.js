@@ -35,6 +35,9 @@ export const apiSlice = createApi({
 		getDetailRelatedProducts: build.query({
 			query: (slug) => `/products/${slug}/related/`,
 		}),
+		getCategorizedProducts: build.query({
+			query: (id) => `/products/${id}/categorized/`
+		})
 	}),
 })
 
@@ -49,4 +52,5 @@ export const {
 	useGetDetailProductReviewsQuery,
 	useGetDetailProductFeaturesQuery,
 	useGetDetailRelatedProductsQuery,
+	useGetCategorizedProductsQuery
 } = apiSlice

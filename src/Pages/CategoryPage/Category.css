@@ -7,13 +7,14 @@
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
+	text-align: center;
 
 	height: 150px;
 
 	transition: all 0.3s ease;
 	text-decoration: none;
 
-	background-color: #FFF;
+	background-color: #fff;
 }
 
 .category__img {
