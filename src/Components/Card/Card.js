@@ -1,22 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link } from 'react-router-dom'
 import TranslationContext from '../../Context/TranslationContext'
 import './Card.css'
 
+import { AiOutlineZoomIn } from 'react-icons/ai'
 import { BsHeart, BsHeartFill } from 'react-icons/bs'
 import { MdOutlineShoppingCart } from 'react-icons/md'
-import { AiOutlineZoomIn } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../redux/features/cartSlice'
 import { addToFavorites } from '../../redux/features/favouriteSlice'
 
-import { useState, useEffect } from 'react'
-
 const Card = ({ cardInfo }) => {
 	const dispatch = useDispatch()
 
-	const [button, setButton] = useState([])
+	const [button, setButton] = useState(false)
 	const [icon, setIcon] = useState(false)
 
 	const cartItems = useSelector((state) => state.cartReducer.cartItems)
@@ -42,6 +40,7 @@ const Card = ({ cardInfo }) => {
 		const favouriteItemIndex = favouriteItems.find(
 			(item) => item.id === cardInfo.id
 		)
+
 		setButton(cartItemIndex)
 		setIcon(favouriteItemIndex)
 	}, [cartItems, favouriteItems])

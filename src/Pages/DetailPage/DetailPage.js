@@ -1,12 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useParams } from 'react-router'
 import 'swiper/modules/autoplay/autoplay.min.css'
-import {
-	getProduct,
-	getProductCharac,
-	getProductReview,
-	postComment,
-} from '../../Repository/ProductsApi'
 import Spinner from '../../Components/Spinner'
 import DetailDescription from './DetailDescription'
 import DetailCharacteristics from './DetailCharacteristics'
@@ -20,82 +14,61 @@ import DetailSameContent from './DetailSameContent'
 import DetailModal from './DetailModal'
 import DetailPayMethods from './DetailPayMethods'
 
+import {
+	useGetDetailProductQuery,
+	useGetDetailProductReviewsQuery,
+	useGetDetailProductFeaturesQuery,
+	useGetDetailRelatedProductsQuery,
+} from '../../redux/api/apiSlice'
+import { AiFillStar } from 'react-icons/ai'
+
 const DetailPage = () => {
-	const starRated = new Array(5).fill(
-		<svg
-			width='13'
-			height='12'
-			viewBox='0 0 13 12'
-			fill='#C1C8CE'
-			xmlns='http://www.w3.org/2000/svg'
-		>
-			<path d='M13.0001 4.67348L9.27319 7.46447L10.3674 12.0001L6.74598 9.26063L2.89136 11.8549L4.37986 7.3697L0.904053 4.4384L5.44515 4.40603L7.15143 6.10352e-05L8.46894 4.46476L13.0001 4.67348Z' />
-		</svg>,
-		0,
-		5
-	)
-	const [data, setData] = useState([])
-	const [characteristic, setCharacteristic] = useState([])
-	const [loading, setLoading] = useState(true)
-	const [comments, setComments] = useState([])
+	const { url, main_url } = useParams()
+	const { data: product, isLoading } = useGetDetailProductQuery(main_url)
+	const { data: reviews } = useGetDetailProductReviewsQuery(main_url)
+	const { data: features } = useGetDetailProductFeaturesQuery(main_url)
+	const { data: relatedProducts } = useGetDetailRelatedProductsQuery(main_url)
+
+	const stars = new Array(5).fill(<AiFillStar style={{ color: '#C1C8CE' }} />)
+
 	const [modal, setModal] = useState(false)
 
-	const { url, main_url } = useParams()
 	const [currTab, setCurrTab] = useState('about')
-
-	useEffect(() => {
-		getProduct(main_url)
-			.then((res) => {
-				setData(res.data)
-				setLoading(false)
-			})
-			.catch((err) => console.log(err))
-		getProductCharac(main_url)
-			.then((res) => setCharacteristic(res.data))
-			.catch((err) => console.log(err))
-		window.scrollTo(null, 0)
-	}, [main_url])
-
-	useEffect(() => {
-		if (data.id) {
-			getProductReview(data.id)
-				.then((res) => setComments(res.data))
-				.catch((err) => console.log(err))
-		}
-	}, [data.id])
 
 	const content = useMemo(() => {
 		switch (currTab) {
 			case 'about':
-				return <DetailDescription description={data.descriptions} />
+				return <DetailDescription descriptions={product?.descriptions} />
 			case 'characteristics':
-				return <DetailCharacteristics characteristic={characteristic} />
+				return <DetailCharacteristics features={features} />
 			case 'comments':
-				return <DetailComment comments={comments.results} />
+				return <DetailComment reviews={reviews?.results} stars={stars} />
 			default:
 				return <DetailDescription />
 		}
-	}, [currTab, comments, characteristic, data.descriptions])
+	}, [currTab, product])
 
-	if (loading) {
+	window.scrollTo(0, 0)
+
+	if (isLoading) {
 		return <Spinner />
 	}
 
 	return (
 		<section className='detail-page'>
 			<div className='container'>
-				<DetailNavigation main_url={main_url} url={url} data={data} />
+				<DetailNavigation main_url={main_url} url={url} product={product} />
 
 				<div className='row gy-4'>
 					<div className='col-lg-6 col-12'>
-						<DetailCarousel data={data} />
+						<DetailCarousel product={product} />
 					</div>
 					<div className='col-lg-6 col-12'>
 						<DetailInfo
-							comments={comments}
-							data={data}
+							product={product}
+							reviews={reviews}
+							stars={stars}
 							setModal={setModal}
-							starRated={starRated}
 						/>
 					</div>
 				</div>
@@ -127,8 +100,8 @@ const DetailPage = () => {
 								onClick={(e) => {
 									setCurrTab(e.target.getAttribute('data-value'))
 								}}
-								className={currTab === 'comments' ? 'active' : ''}
 								data-value='comments'
+								className={currTab === 'comments' ? 'active' : ''}
 							>
 								Отзывы
 							</li>
@@ -138,17 +111,17 @@ const DetailPage = () => {
 					{content}
 				</div>
 
-				<DetailSameContent main_url={main_url} />
+				<DetailSameContent relatedProducts={relatedProducts} />
 
-				<DetailModal
+				{/* <DetailModal
 					setModal={setModal}
 					starRated={starRated}
 					modal={modal}
 					data={data}
-				/>
+				/> */}
 			</div>
 
-			<div className={'mobile__category'}>
+			<div className='mobile__category'>
 				<Categories />
 			</div>
 		</section>

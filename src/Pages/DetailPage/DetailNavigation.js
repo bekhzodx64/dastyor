@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { VscChevronRight } from 'react-icons/vsc'
 
-const DetailNavigation = ({ data, url, main_url }) => {
+const DetailNavigation = ({ product, url, main_url }) => {
 	return (
 		<div className='detail-page__navigation'>
 			<Link to='/'>
@@ -14,10 +14,10 @@ const DetailNavigation = ({ data, url, main_url }) => {
 				<VscChevronRight />
 			</Link>
 			<Link to={`/category/${url}`}>
-				{data.category.title}
+				{product.category.title}
 				<VscChevronRight />
 			</Link>
-			<Link to={`/category/${url}/${main_url}`}>{data.title}</Link>
+			<Link to={`/category/${url}/${main_url}`}>{product.title}</Link>
 		</div>
 	)
 }

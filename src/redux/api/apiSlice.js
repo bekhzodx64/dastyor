@@ -23,6 +23,18 @@ export const apiSlice = createApi({
 		getMostCommonProducts: build.query({
 			query: () => '/products/most-common/',
 		}),
+		getDetailProduct: build.query({
+			query: (id) => `/products/${id}`,
+		}),
+		getDetailProductReviews: build.query({
+			query: (id) => `/products/${id}/reviews/`,
+		}),
+		getDetailProductFeatures: build.query({
+			query: (id) => `/products/${id}/features/`,
+		}),
+		getDetailRelatedProducts: build.query({
+			query: (slug) => `/products/${slug}/related/`,
+		}),
 	}),
 })
 
@@ -33,4 +45,8 @@ export const {
 	useGetLatestProductsQuery,
 	useGetTopSellerProductsQuery,
 	useGetMostCommonProductsQuery,
+	useGetDetailProductQuery,
+	useGetDetailProductReviewsQuery,
+	useGetDetailProductFeaturesQuery,
+	useGetDetailRelatedProductsQuery,
 } = apiSlice

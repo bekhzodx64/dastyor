@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import default__img from '../../Assets/Images/default__img.png'
 import AuthenticationContext from '../../Context/AuthenticationContext'
+import Spinner from '../../Components/Spinner'
 
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -9,12 +10,11 @@ import {
 	increaseCartItemQuantity,
 	decreaseCartItemQuantity,
 } from '../../redux/features/cartSlice'
-import { useParams } from 'react-router-dom'
 import { IoAdd, IoRemove } from 'react-icons/io5'
 import { MdOutlineShoppingCart } from 'react-icons/md'
 import { BiShare } from 'react-icons/bi'
 
-const DetailInfo = ({ data, starRated, comments, setModal }) => {
+const DetailInfo = ({ product, stars, reviews, setModal }) => {
 	const { authenticated } = useContext(AuthenticationContext)
 	const [selectedColor, setSelectedColor] = useState(null)
 
@@ -23,13 +23,13 @@ const DetailInfo = ({ data, starRated, comments, setModal }) => {
 	const cartItems = useSelector((state) => state.cartReducer.cartItems)
 
 	useEffect(() => {
-		const cartItemIndex = cartItems.find((item) => item.id === data.id)
+		const cartItemIndex = cartItems.find((item) => item.id === product.id)
 
 		setButton(cartItemIndex)
 	}, [cartItems])
 
 	const handleAddToCart = () => {
-		dispatch(addToCart(data))
+		dispatch(addToCart(product))
 	}
 
 	const handleIncreaseItem = (data) => {
@@ -48,13 +48,13 @@ const DetailInfo = ({ data, starRated, comments, setModal }) => {
 
 	return (
 		<React.Fragment>
-			<h4 className='detail-page__title'>{data.title}</h4>
+			<h4 className='detail-page__title'>{product.title}</h4>
 			<div className='detail-page__rated'>
 				<div>
-					{starRated.map((item, index) => (
+					{stars.map((item, index) => (
 						<i
 							className={
-								index < data.rating
+								index < product.rating
 									? 'detail-page__star active'
 									: 'detail-page__star'
 							}
@@ -64,7 +64,7 @@ const DetailInfo = ({ data, starRated, comments, setModal }) => {
 						</i>
 					))}
 				</div>
-				<div>{comments.count} отзывов</div>
+				<div>{reviews.count} отзывов</div>
 				{authenticated ? (
 					<div onClick={() => setModal(true)}>Оставить отзыв</div>
 				) : (
@@ -74,24 +74,26 @@ const DetailInfo = ({ data, starRated, comments, setModal }) => {
 				)}
 			</div>
 			<div className='detail-page__price'>
-				{data.discount == null ? (
+				{product.discount == null ? (
 					<span className='curr_price'>
-						Цена: {numberWithCommas(`${data.price}`)} UZS
+						Цена: {numberWithCommas(`${product.price}`)} UZS
 					</span>
 				) : (
 					<>
-						<span>Цена: {numberWithCommas(`${data.dicounted_price}`)} UZS</span>
-						<span>{numberWithCommas(`${data.price}`)}</span>
-						<span>{data.discount}% скидка</span>
+						<span>
+							Цена: {numberWithCommas(`${product.discounted_price}`)} UZS
+						</span>
+						<span>{numberWithCommas(`${product.price}`)}</span>
+						<span>{product.discount}% скидка</span>
 					</>
 				)}
 			</div>
 			<div className='detail-page__exists'>
-				{data.color.length === 0 ? null : (
+				{product.color.length === 0 ? null : (
 					<>
 						<h5>Доступные цвета:</h5>
 						<div>
-							{data.color.map((item, index) => (
+							{product.color.map((item, index) => (
 								<span
 									className={selectedColor === index ? 'active' : ''}
 									key={item.id}
@@ -105,11 +107,11 @@ const DetailInfo = ({ data, starRated, comments, setModal }) => {
 			</div>
 			<div className='detail-page__buttons'>
 				<div className='detail-page__addmore'>
-					<span onClick={() => handleDecreaseItem(data)}>
+					<span onClick={() => handleDecreaseItem(product)}>
 						<IoRemove style={{ color: '#FF3C20' }} />
 					</span>
 					<span>0</span>
-					<span onClick={() => handleIncreaseItem(data)}>
+					<span onClick={() => handleIncreaseItem(product)}>
 						<IoAdd style={{ color: '#FF3C20' }} />
 					</span>
 				</div>
@@ -125,7 +127,7 @@ const DetailInfo = ({ data, starRated, comments, setModal }) => {
 					<BiShare style={{ fontSize: '22px', color: '#FF3C20' }} />
 					<span>Поделиться</span>
 					<div className='detail-page__dropdown'>
-						{data.social_media_links.map((item) => (
+						{product.social_media_links.map((item) => (
 							<a
 								href={item.link + `https://dastyor.com${location.pathname}`}
 								key={item.id}
@@ -144,23 +146,25 @@ const DetailInfo = ({ data, starRated, comments, setModal }) => {
 			</div>
 			<div className='detail-page__seller'>
 				<img
-					src={data.seller.photo ? data.seller.photo : default__img}
+					src={product.seller.photo ? product.seller.photo : default__img}
 					alt='Dastyor Express'
 				/>
 				<div className='seller__info'>
-					<h5>{data.seller.shop_name}</h5>
+					<h5>{product.seller.shop_name}</h5>
 					<div>
 						<span>
-							{starRated.map((item, index) => (
+							{stars.map((item, index) => (
 								<i
-									className={data.seller.average_rating > index ? 'active' : ''}
+									className={
+										product.seller.average_rating > index ? 'active' : ''
+									}
 									key={index}
 								>
 									{item}
 								</i>
 							))}
 						</span>
-						<Link to={`/seller/${data.seller.unique_id}`}>
+						<Link to={`/seller/${product.seller.unique_id}`}>
 							Все продукты автора
 						</Link>
 					</div>

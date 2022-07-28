@@ -1,48 +1,49 @@
-import React, { useContext, useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import SwiperCore, { Autoplay, Navigation, Thumbs } from 'swiper'
-import FavoriteContext from '../../Context/FavoriteContext'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { BsHeart, BsHeartFill } from 'react-icons/bs'
 import { addToFavorites } from '../../redux/features/favouriteSlice'
 
+const navigation = {
+	nextEl: '.swiper-button-next1',
+	prevEl: '.swiper-button-prev1',
+}
+
 SwiperCore.use([Thumbs, Autoplay, Navigation])
 
-const DetailCarousel = ({ data }) => {
+const DetailCarousel = ({ product }) => {
 	const dispatch = useDispatch()
-	const { addToFavorite, itemIsFavorite } = useContext(FavoriteContext)
-	const [thumbsSwiper, setThumbsSwiper] = useState(null)
 
 	const [icon, setIcon] = useState(false)
+	const [thumbsSwiper, setThumbsSwiper] = useState(null)
+
 	const favouriteItems = useSelector(
 		(state) => state.favouriteReducer.favourites
 	)
 
 	const handleAddToFavourites = () => {
-		dispatch(addToFavorites(data))
+		dispatch(addToFavorites(product))
 	}
 
 	useEffect(() => {
 		const favouriteItemIndex = favouriteItems.find(
-			(item) => item.id === data.id
+			(item) => item.id === product.id
 		)
 		setIcon(favouriteItemIndex)
 	}, [favouriteItems])
 
 	const photos = useMemo(
-		() => [{ id: 15556465, photo: data.photo }, ...data.photos],
-		[data.photo, data.photos]
+		() => [{ id: 15556465, photo: product.photo }, ...product.photos],
+		[product.photo, product.photos]
 	)
 
 	return (
 		<div className='detail-page__parent'>
 			<Swiper
 				onSwiper={setThumbsSwiper}
-				navigation={{
-					nextEl: '.swiper-button-next1',
-					prevEl: '.swiper-button-prev1',
-				}}
+				navigation={navigation}
 				spaceBetween={10}
 				slidesPerView={4}
 				direction={'vertical'}
@@ -52,7 +53,7 @@ const DetailCarousel = ({ data }) => {
 				{photos.map((item, index) => (
 					<SwiperSlide key={index}>
 						<div className='detail-page__thumbs'>
-							<img src={item.photo} alt={data.title} />
+							<img src={item.photo} alt={product.title} />
 						</div>
 					</SwiperSlide>
 				))}
@@ -100,10 +101,10 @@ const DetailCarousel = ({ data }) => {
 				{photos.map((item, index) => (
 					<SwiperSlide key={index}>
 						<div className='detail-page__carousel'>
-							{data.discount != null ? (
-								<span className='card__dispercent'>{data.discount}%</span>
+							{product.discount != null ? (
+								<span className='card__dispercent'>{product.discount}%</span>
 							) : null}
-							<img src={item.photo} alt={data.title} />
+							<img src={item.photo} alt={product.title} />
 						</div>
 					</SwiperSlide>
 				))}

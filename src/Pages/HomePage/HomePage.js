@@ -15,13 +15,15 @@ import {
 	useGetMostCommonProductsQuery,
 } from '../../redux/api/apiSlice'
 
-SwiperCore.use([Pagination])
-
 const pagination = {
 	clickable: true,
 }
 
+SwiperCore.use([Pagination])
+
 const HomePage = () => {
+	const { data: banners, isLoading: bannersIsLoading } = useGetBannersQuery([])
+
 	const { data: latest, isLoading: latestIsLoading } =
 		useGetLatestProductsQuery([])
 
@@ -30,8 +32,6 @@ const HomePage = () => {
 
 	const { data: mostCommon, isLoading: mostCommonIsLoading } =
 		useGetMostCommonProductsQuery([])
-
-	const { data: banners, isLoading: bannersIsLoading } = useGetBannersQuery([])
 
 	return (
 		<section className='home-page'>
