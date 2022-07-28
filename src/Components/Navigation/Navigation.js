@@ -8,7 +8,6 @@ import MenuContext from '../../Context/MenuContext'
 import TranslationContext from '../../Context/TranslationContext'
 import Search from '../Search'
 import LocationContext from '../../Context/LocationContext'
-import AsideContext from '../../Context/AsideContext'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { cartHandler, getTotals } from '../../redux/features/cartSlice'
@@ -28,7 +27,6 @@ const Navigation = () => {
 	const { translation } = useContext(TranslationContext)
 	const { setCategoryOpen } = useContext(MenuContext)
 	const { authenticated } = useContext(AuthenticationContext)
-	const { setBasketOpen, setLikedOpen } = useContext(AsideContext)
 	const { currentLocation, locations, toggleSelectCountry } =
 		useContext(LocationContext)
 	const [termCountry, setTermCountry] = useState('')
@@ -64,7 +62,7 @@ const Navigation = () => {
 	useEffect(() => {
 		dispatch(getTotals())
 		dispatch(getFavouritesTotal())
-	}, [cartItems, favourites])
+	}, [cartItems, favourites, dispatch])
 
 	const executeScroll = () =>
 		countryRef.current?.scrollIntoView({ block: 'nearest' })

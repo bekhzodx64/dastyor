@@ -1,9 +1,6 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import Card from '../../Components/Card'
-import Spinner from '../../Components/Spinner'
-
-import { useGetDetailRelatedProductsQuery } from '../../redux/api/apiSlice'
 
 const navigation = {
 	prevEl: '.prev-button',

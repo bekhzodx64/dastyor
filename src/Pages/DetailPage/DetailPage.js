@@ -46,9 +46,7 @@ const DetailPage = () => {
 			default:
 				return <DetailDescription />
 		}
-	}, [currTab, product])
-
-	window.scrollTo(0, 0)
+	}, [currTab, product, features, stars, reviews?.results])
 
 	if (isLoading) {
 		return <Spinner />
@@ -113,12 +111,12 @@ const DetailPage = () => {
 
 				<DetailSameContent relatedProducts={relatedProducts} />
 
-				{/* <DetailModal
+				<DetailModal
 					setModal={setModal}
-					starRated={starRated}
+					stars={stars}
 					modal={modal}
-					data={data}
-				/> */}
+					product={product}
+				/>
 			</div>
 
 			<div className='mobile__category'>

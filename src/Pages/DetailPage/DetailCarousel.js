@@ -32,7 +32,7 @@ const DetailCarousel = ({ product }) => {
 			(item) => item.id === product.id
 		)
 		setIcon(favouriteItemIndex)
-	}, [favouriteItems])
+	}, [favouriteItems, product.id])
 
 	const photos = useMemo(
 		() => [{ id: 15556465, photo: product.photo }, ...product.photos],

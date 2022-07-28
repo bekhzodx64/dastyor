@@ -43,7 +43,7 @@ const Card = ({ cardInfo }) => {
 
 		setButton(cartItemIndex)
 		setIcon(favouriteItemIndex)
-	}, [cartItems, favouriteItems])
+	}, [cartItems, favouriteItems, cardInfo.id])
 
 	return (
 		<div className='card'>

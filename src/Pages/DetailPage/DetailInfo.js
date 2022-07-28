@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import default__img from '../../Assets/Images/default__img.png'
 import AuthenticationContext from '../../Context/AuthenticationContext'
-import Spinner from '../../Components/Spinner'
 
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -26,7 +25,7 @@ const DetailInfo = ({ product, stars, reviews, setModal }) => {
 		const cartItemIndex = cartItems.find((item) => item.id === product.id)
 
 		setButton(cartItemIndex)
-	}, [cartItems])
+	}, [cartItems, product.id])
 
 	const handleAddToCart = () => {
 		dispatch(addToCart(product))
