@@ -23,13 +23,10 @@ SwiperCore.use([Pagination])
 
 const HomePage = () => {
 	const { data: banners, isLoading: bannersIsLoading } = useGetBannersQuery([])
-
 	const { data: latest, isLoading: latestIsLoading } =
 		useGetLatestProductsQuery([])
-
 	const { data: topSeller, isLoading: topSellerIsLoading } =
 		useGetTopSellerProductsQuery([])
-
 	const { data: mostCommon, isLoading: mostCommonIsLoading } =
 		useGetMostCommonProductsQuery([])
 

@@ -1,23 +1,21 @@
-import React from 'react';
-import AppRoutes from "../../AppRoutes";
-import Navigation from "../Navigation";
-import Footer from '../Footer';
-import DashAndLiked from "../DashAndLiked";
-import Providers from "../Providers";
-import './App.css';
+import AppRoutes from '../../AppRoutes'
+import DashAndLiked from '../DashAndLiked'
+import Footer from '../Footer'
+import Navigation from '../Navigation'
+import Providers from '../Providers'
+import './App.css'
 
 const App = () => {
+	return (
+		<Providers>
+			<Navigation />
+			<main className='app'>
+				<AppRoutes />
+				<DashAndLiked />
+			</main>
+			<Footer />
+		</Providers>
+	)
+}
 
-  return (
-    <Providers>
-      <Navigation/>
-      <main className='app'>
-        <AppRoutes/>
-        <DashAndLiked/>
-      </main>
-      <Footer/>
-    </Providers>
-  );
-};
-
-export default App;
+export default App

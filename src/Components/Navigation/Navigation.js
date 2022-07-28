@@ -16,7 +16,9 @@ import {
 	getFavouritesTotal,
 } from '../../redux/features/favouriteSlice'
 import { BsHeart } from 'react-icons/bs'
-import { MdOutlineShoppingCart } from 'react-icons/md'
+import { MdOutlineShoppingCart, MdLocationPin } from 'react-icons/md'
+import { AiFillCaretDown } from 'react-icons/ai'
+import { RiMenu3Fill } from 'react-icons/ri'
 
 const Navigation = () => {
 	const dispatch = useDispatch()
@@ -116,43 +118,18 @@ const Navigation = () => {
 							onMouseLeave={() => setOpenCountry(false)}
 						>
 							<span>
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									width='13'
-									height='19'
-									viewBox='0 0 13 19'
-								>
-									<g>
-										<g>
-											<path
-												fill='#ff5234'
-												d='M13 5.844v.894c0 2.18-1.917 4.392-3.108 6.587-.117.22-.373.456-.508.692-.2.355-.434.727-.635 1.098C8.01 16.382 7.259 17.7 6.504 19c-1.225-1.993-2.46-3.986-3.652-6.013C1.745 11.097.263 9.086.028 7.195A8.006 8.006 0 0 1 0 6.705v-.811C.42 1.925 3.56 0 6.412 0c2.13 0 4.769 1.047 5.976 3.969.101.236.238.506.305.76.016.05.307.878.307 1.115zm-4.083.523c0-1.35-1.038-2.432-2.38-2.432-1.09 0-2.344.676-2.344 2.162v.523c0 .034-.005.406.062.592.453 1.165 1.371 1.587 2.21 1.587 1.341 0 2.452-1.08 2.452-2.432z'
-											/>
-										</g>
-									</g>
-								</svg>
+								<MdLocationPin style={{ color: '#ff5234', fontSize: '22px' }} />
 							</span>
 							<span className='extra-class'>{currentLocation?.title}</span>
 							<span>
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									width='10'
-									height='5'
-									viewBox='0 0 10 5'
-								>
-									<g>
-										<g>
-											<path fill='#1c1e23' d='M0 0h10L5 5z' />
-										</g>
-									</g>
-								</svg>
+								<AiFillCaretDown />
 							</span>
 							<div className='regions'>
 								<input
 									type='search'
 									value={termCountry}
 									onChange={(e) => setTermCountry(e.target.value)}
-									placeholder={'Search country'}
+									placeholder='Search country'
 								/>
 								{countries}
 							</div>
@@ -212,18 +189,7 @@ const Navigation = () => {
 								<div className='language__selected'>
 									<span>{currLang}</span>
 									<span>
-										<svg
-											xmlns='http://www.w3.org/2000/svg'
-											width='10'
-											height='5'
-											viewBox='0 0 10 5'
-										>
-											<g>
-												<g>
-													<path fill='#1c1e23' d='M0 0h10L5 5z' />
-												</g>
-											</g>
-										</svg>
+										<AiFillCaretDown />
 									</span>
 								</div>
 								<div className='language__list'>
@@ -270,15 +236,7 @@ const Navigation = () => {
 							</div>
 
 							<div className='menu__open' onClick={() => setCategoryOpen(true)}>
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									viewBox='0 0 24 24'
-									width='24'
-									height='24'
-								>
-									<path fill='none' d='M0 0h24v24H0z' />
-									<path d='M3 4h18v2H3V4zm6 7h12v2H9v-2zm-6 7h18v2H3v-2z' />
-								</svg>
+								<RiMenu3Fill style={{ fontSize: '24px' }} />
 							</div>
 						</div>
 					</div>

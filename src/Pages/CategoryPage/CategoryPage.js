@@ -32,7 +32,7 @@ const CategoryPage = () => {
 					))}
 				</div>
 			</div>
-			<div className={'mobile__category'}>{/* <Categories /> */}</div>
+			<div className='mobile__category'>{/* <Categories /> */}</div>
 		</section>
 	)
 }

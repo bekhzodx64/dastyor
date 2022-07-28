@@ -16,6 +16,8 @@ import {
 	favouritesHandler,
 	removeFromFavourites,
 } from '../../redux/features/favouriteSlice'
+import { IoClose, IoAdd, IoRemove } from 'react-icons/io5'
+import { RiDeleteBinLine } from 'react-icons/ri'
 
 const Aside = ({
 	title,
@@ -69,16 +71,10 @@ const Aside = ({
 					<div className={showCart ? 'aside active' : 'aside'}>
 						<div className='aside__header'>
 							<h4>{title}</h4>
-							<svg
+							<IoClose
 								onClick={() => dispatch(cartHandler())}
-								xmlns='http://www.w3.org/2000/svg'
-								viewBox='0 0 24 24'
-								width='24'
-								height='24'
-							>
-								<path fill='none' d='M0 0h24v24H0z' />
-								<path d='M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414                       4.95-4.95-4.95-4.95L7.05 5.636z' />
-							</svg>
+								style={{ fontSize: '24px' }}
+							/>
 						</div>
 						<div className='aside__content'>
 							{typeof cartItems == 'undefined' ? (
@@ -129,68 +125,24 @@ const Aside = ({
 												<div>
 													{type === 'liked' ? null : (
 														<div className='aside__add'>
-															<span onClick={() => handleDecreaseItem(item)}>
-																<svg
-																	width='10'
-																	height='2'
-																	viewBox='0 0 10 2'
-																	fill='none'
-																	xmlns='http://www.w3.org/2000/svg'
-																>
-																	<path
-																		d='M9.5 1H0.5'
-																		stroke='#121212'
-																		strokeLinecap='round'
-																		strokeLinejoin='round'
-																	/>
-																</svg>
+															<span>
+																<IoRemove
+																	onClick={() => handleDecreaseItem(item)}
+																/>
 															</span>
 															<span>{item.count}</span>
-															<span onClick={() => handleIncreaseItem(item)}>
-																<svg
-																	width='10'
-																	height='10'
-																	viewBox='0 0 10 10'
-																	fill='none'
-																	xmlns='http://www.w3.org/2000/svg'
-																>
-																	<path
-																		d='M5 5H0.5M5 0.5V5V0.5ZM5 5V9.5V5ZM5 5H9.5H5Z'
-																		stroke='#121212'
-																		strokeLinecap='round'
-																		strokeLinejoin='round'
-																	/>
-																</svg>
+															<span>
+																<IoAdd
+																	onClick={() => handleIncreaseItem(item)}
+																/>
 															</span>
 														</div>
 													)}
 													<span className='aside__price'>
 														{numberWithCommas(item.price * item.count)}
 													</span>
-													<button
-														onClick={() => handleDeleteItem(item)}
-														// onClick={() =>
-														// 	type === 'liked'
-														// 		? removeFromFavorite(item.id)
-														// 		: deleteItem(item.id)
-														// }
-													>
-														<svg
-															width='24'
-															stroke='#121212'
-															height='24'
-															viewBox='0 0 24 24'
-															fill='none'
-															xmlns='http://www.w3.org/2000/svg'
-														>
-															<g>
-																<path
-																	d='M4 7H20M19 7L18.133 19.142C18.0971 19.6466 17.8713 20.1188 17.5011 20.4636C17.1309 20.8083 16.6439 21 16.138 21H7.862C7.35614 21 6.86907 20.8083 6.49889 20.4636C6.1287 20.1188 5.90292 19.6466 5.867 19.142L5 7H19ZM10 11V17V11ZM14 11V17V11ZM15 7V4C15 3.73478 14.8946 3.48043 14.7071 3.29289C14.5196 3.10536 14.2652 3 14 3H10C9.73478 3 9.48043 3.10536 9.29289 3.29289C9.10536 3.48043 9 3.73478 9 4V7H15Z'
-																	strokeLinecap='round'
-																	strokeLinejoin='round'
-																/>
-															</g>
-														</svg>
+													<button onClick={() => handleDeleteItem(item)}>
+														<RiDeleteBinLine style={{ fontSize: '20px' }} />
 													</button>
 												</div>
 											</div>
@@ -222,16 +174,10 @@ const Aside = ({
 					<div className={showFavourites ? 'aside active' : 'aside'}>
 						<div className='aside__header'>
 							<h4>{title}</h4>
-							<svg
+							<IoClose
 								onClick={() => dispatch(favouritesHandler())}
-								xmlns='http://www.w3.org/2000/svg'
-								viewBox='0 0 24 24'
-								width='24'
-								height='24'
-							>
-								<path fill='none' d='M0 0h24v24H0z' />
-								<path d='M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414                       4.95-4.95-4.95-4.95L7.05 5.636z' />
-							</svg>
+								style={{ fontSize: '24px' }}
+							/>
 						</div>
 						<div className='aside__content'>
 							{typeof favourites == 'undefined' ? (
@@ -283,30 +229,8 @@ const Aside = ({
 													<span className='aside__price'>
 														{numberWithCommas(item.price * item.count)}
 													</span>
-													<button
-														onClick={() => handleDeleteFavItem(item)}
-														// onClick={() =>
-														// 	type === 'liked'
-														// 		? removeFromFavorite(item.id)
-														// 		: deleteItem(item.id)
-														// }
-													>
-														<svg
-															width='24'
-															stroke='#121212'
-															height='24'
-															viewBox='0 0 24 24'
-															fill='none'
-															xmlns='http://www.w3.org/2000/svg'
-														>
-															<g>
-																<path
-																	d='M4 7H20M19 7L18.133 19.142C18.0971 19.6466 17.8713 20.1188 17.5011 20.4636C17.1309 20.8083 16.6439 21 16.138 21H7.862C7.35614 21 6.86907 20.8083 6.49889 20.4636C6.1287 20.1188 5.90292 19.6466 5.867 19.142L5 7H19ZM10 11V17V11ZM14 11V17V11ZM15 7V4C15 3.73478 14.8946 3.48043 14.7071 3.29289C14.5196 3.10536 14.2652 3 14 3H10C9.73478 3 9.48043 3.10536 9.29289 3.29289C9.10536 3.48043 9 3.73478 9 4V7H15Z'
-																	strokeLinecap='round'
-																	strokeLinejoin='round'
-																/>
-															</g>
-														</svg>
+													<button onClick={() => handleDeleteFavItem(item)}>
+														<RiDeleteBinLine style={{ fontSize: '20px' }} />
 													</button>
 												</div>
 											</div>

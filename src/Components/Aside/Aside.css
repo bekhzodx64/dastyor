@@ -11,8 +11,8 @@
 
 	opacity: 0;
 
-	background-color: #FFF;
-	box-shadow: 0 0 7px 0 #C0C0C054;
+	background-color: #fff;
+	box-shadow: 0 0 7px 0 #c0c0c054;
 }
 
 .aside h4 {
@@ -21,7 +21,7 @@
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
 
-	color: #FFF;
+	color: #fff;
 
 	font-size: 18px;
 	line-height: 0;
@@ -70,19 +70,19 @@
 
 .aside__content::-webkit-scrollbar-thumb {
 	border-radius: 10px;
-	background: #FF5234;
+	background: #ff5234;
 }
 
 .aside__content::-webkit-scrollbar-track {
 	border-radius: 10px;
-	background-color: #F9F9FD;
+	background-color: #f9f9fd;
 	box-shadow: 5px 5px 5px -5px rgb(34 60 80 / 20%) inset;
 }
 
 .aside__content::-webkit-scrollbar {
 	width: 5px;
 
-	background-color: #F9F9FD;
+	background-color: #f9f9fd;
 }
 
 .aside__card {
@@ -95,7 +95,7 @@
 	margin: 12px 0;
 
 	border-radius: 5px;
-	background-color: #E6E6E6;
+	background-color: #e6e6e6;
 }
 
 .aside__card img {
@@ -108,6 +108,7 @@
 }
 
 .aside__detail {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 
@@ -137,6 +138,7 @@
 
 .aside__detail > div {
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
 
 	margin-top: 26px;
@@ -150,7 +152,7 @@
 	border: 1px solid transparent;
 	border-radius: 5px;
 	outline: none;
-	background-color: #FFF;
+	background-color: #fff;
 }
 
 .aside__detail > div button:hover {
@@ -172,7 +174,7 @@
 	margin-right: 16px;
 	padding: 6px 10px;
 
-	background-color: #F8F8F8;
+	background-color: #f8f8f8;
 }
 
 .aside__add span {
@@ -213,13 +215,13 @@
 	border: 1px solid transparent;
 	outline: none;
 	background-color: var(--main-color);
-	box-shadow: 1px 1px 0 18px #FFF;
+	box-shadow: 1px 1px 0 18px #fff;
 }
 
 .aside__button:hover {
 	color: var(--main-color);
 	border: 1px solid var(--main-color);
-	background-color: #FFF;
+	background-color: #fff;
 }
 
 .aside__button:disabled {

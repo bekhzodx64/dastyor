@@ -6,11 +6,6 @@ import 'swiper/modules/autoplay/autoplay.min.css'
 
 SwiperCore.use([Navigation, Autoplay])
 
-const navigation = {
-	prevEl: '.prev-button',
-	nextEl: '.next-button',
-}
-
 const brakePoints = {
 	320: {
 		slidesPerView: 2,
@@ -31,6 +26,13 @@ const brakePoints = {
 }
 
 const HomePageContent = ({ title, number, products }) => {
+	const navigation = {
+		prevEl: '.prev-button' + number,
+		nextEl: '.next-button' + number,
+	}
+
+	const autoplay = { delay: parseInt(`${number + 2}000`) }
+
 	return (
 		<div className='home__content'>
 			<h2 className='title'>{title}</h2>
@@ -38,7 +40,7 @@ const HomePageContent = ({ title, number, products }) => {
 				slidesPerView={5}
 				navigation={navigation}
 				spaceBetween={20}
-				autoplay={{ delay: parseInt(`${number + 2}000`) }}
+				autoplay={autoplay}
 				breakpoints={brakePoints}
 			>
 				{products.results.map((product) => (
