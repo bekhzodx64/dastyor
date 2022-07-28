@@ -1,10 +1,6 @@
 import { getData, postDataWithToken } from './BaseApi'
 import axios from 'axios'
 
-export const getLatestProduct = () => getData('/products/latest/') // ready
-export const getMostCommonProduct = () => getData('/products/most-common/') // ready
-export const getTopSellerProduct = () => getData('/products/top-seller/') // ready
-
 export const getProductBySlug = (url) =>
 	getData(`/products/${url}/categorized/`)
 

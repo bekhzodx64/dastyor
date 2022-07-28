@@ -1,12 +1,7 @@
-import React from 'react'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import { CategoriesContextProvider } from '../../Context/CategoriesContext'
 import { UserInfoContextProvider } from '../../Context/UserInfoContext'
 import { AuthenticationContextProvider } from '../../Context/AuthenticationContext'
-import { AsideContextProvider } from '../../Context/AsideContext'
-import { BasketContextProvider } from '../../Context/BasketContext'
-import { FavoriteContextProvider } from '../../Context/FavoriteContext'
 import { TranslationContextProvider } from '../../Context/TranslationContext'
 import { LocationContextProvider } from '../../Context/LocationContext'
 import { MenuContextProvider } from '../../Context/MenuContext'
@@ -22,21 +17,13 @@ const Providers = ({ children }) => {
 	return (
 		<Elements stripe={stripePromise} options={options}>
 			<LocationContextProvider>
-				<CategoriesContextProvider>
-					<UserInfoContextProvider>
-						<AuthenticationContextProvider>
-							<AsideContextProvider>
-								<BasketContextProvider>
-									<FavoriteContextProvider>
-										<TranslationContextProvider>
-											<MenuContextProvider>{children}</MenuContextProvider>
-										</TranslationContextProvider>
-									</FavoriteContextProvider>
-								</BasketContextProvider>
-							</AsideContextProvider>
-						</AuthenticationContextProvider>
-					</UserInfoContextProvider>
-				</CategoriesContextProvider>
+				<UserInfoContextProvider>
+					<AuthenticationContextProvider>
+						<TranslationContextProvider>
+							<MenuContextProvider>{children}</MenuContextProvider>
+						</TranslationContextProvider>
+					</AuthenticationContextProvider>
+				</UserInfoContextProvider>
 			</LocationContextProvider>
 		</Elements>
 	)

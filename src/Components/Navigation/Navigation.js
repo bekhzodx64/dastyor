@@ -22,9 +22,9 @@ import { RiMenu3Fill } from 'react-icons/ri'
 
 const Navigation = () => {
 	const dispatch = useDispatch()
+	const [term, setTerm] = useState('')
 	const [openCountry, setOpenCountry] = useState(false)
 	const [openLanguage, setOpenLanguage] = useState(false)
-	const [term, setTerm] = useState('')
 	const [currLang, setCurrLang] = useState('Русский')
 	const { translation } = useContext(TranslationContext)
 	const { setCategoryOpen } = useContext(MenuContext)
