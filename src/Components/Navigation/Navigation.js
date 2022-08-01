@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Navigation.css'
 
 import logo from '../../Assets/Images/logo.png'
-import AuthenticationContext from '../../Context/AuthenticationContext'
 import MenuContext from '../../Context/MenuContext'
 import TranslationContext from '../../Context/TranslationContext'
 import Search from '../Search'
@@ -15,7 +14,6 @@ import {
 	favouritesHandler,
 	getFavouritesTotal,
 } from '../../redux/features/favouriteSlice'
-import { userReducer } from '../../redux/features/userSlice'
 import { BsHeart } from 'react-icons/bs'
 import { MdOutlineShoppingCart, MdLocationPin } from 'react-icons/md'
 import { AiFillCaretDown } from 'react-icons/ai'

@@ -5,12 +5,7 @@ import { changeUserInfo, getUserInfo } from '../../Repository/UserApi'
 import UserInfoContext from '../../Context/UserInfoContext'
 import default_img from '../../Assets/Images/default__img.png'
 
-import { useDispatch } from 'react-redux'
-import { logOutHandler } from '../../redux/features/userSlice'
-
 const UserProfile = () => {
-	const dispatch = useDispatch()
-
 	const [modal, setModal] = useState(false)
 	const { userInfo, setUserInfo } = useContext(UserInfoContext)
 	const [initialValues, setInitialValues] = useState({

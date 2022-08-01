@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import './Aside.css'
 import itemNotFound from '../../Assets/Images/itemnofound.jpg'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
-import AuthenticationContext from '../../Context/AuthenticationContext'
 
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -12,7 +11,6 @@ import {
 	decreaseCartItemQuantity,
 	cartHandler,
 } from '../../redux/features/cartSlice'
-import { userReducer } from '../../redux/features/userSlice'
 import {
 	favouritesHandler,
 	removeFromFavourites,

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import UserInfoContext from '../../Context/UserInfoContext'
 import Categories from '../Categories'
 import default_img from '../../Assets/Images/default__img.png'
-import AuthenticationContext from '../../Context/AuthenticationContext'
 import './UserMenu.css'
 
 import { useDispatch } from 'react-redux'
