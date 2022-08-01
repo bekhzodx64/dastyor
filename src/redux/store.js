@@ -1,14 +1,47 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { apiSlice } from './api/apiSlice'
 import cartReducer from './features/cartSlice'
 import favouriteReducer from './features/favouriteSlice'
+import userReducer from './features/userSlice'
 
-export const store = configureStore({
-	reducer: {
-		cartReducer,
-		favouriteReducer,
-		[apiSlice.reducerPath]: apiSlice.reducer,
-	},
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(apiSlice.middleware),
+// localStorage
+import {
+	persistStore,
+	persistReducer,
+	FLUSH,
+	REHYDRATE,
+	PAUSE,
+	PERSIST,
+	PURGE,
+	REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const rootReducer = combineReducers({
+	cartReducer,
+	favouriteReducer,
+	userReducer,
+	[apiSlice.reducerPath]: apiSlice.reducer,
 })
+
+const persistConfig = {
+	key: 'root',
+	storage,
+	blacklist: [apiSlice.reducerPath],
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+const store = configureStore({
+	reducer: persistedReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+			},
+		}).concat(apiSlice.middleware),
+})
+
+export const persistor = persistStore(store)
+
+export default store

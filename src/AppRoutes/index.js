@@ -1,8 +1,9 @@
-import React, { useContext, Suspense, lazy } from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import UserBookings from '../Pages/UserBookings'
-import AuthenticationContext from '../Context/AuthenticationContext'
 import Spinner from '../Components/Spinner'
+
+import { useSelector } from 'react-redux'
 
 const DetailPage = lazy(() => import('../Pages/DetailPage/DetailPage'))
 const HomePage = lazy(() => import('../Pages/HomePage/HomePage'))
@@ -16,7 +17,9 @@ const NotFoundPage = lazy(() => import('../Pages/NotFoundPage/NotFoundPage'))
 const SearchPage = lazy(() => import('../Pages/SearchPage/SearchPage'))
 
 const AppRoutes = () => {
-	const { authenticated } = useContext(AuthenticationContext)
+	const authenticated = useSelector(
+		(state) => state.userReducer.isAuthenticated
+	)
 
 	return (
 		<Suspense fallback={<Spinner />}>

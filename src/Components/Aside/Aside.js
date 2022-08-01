@@ -12,6 +12,7 @@ import {
 	decreaseCartItemQuantity,
 	cartHandler,
 } from '../../redux/features/cartSlice'
+import { userReducer } from '../../redux/features/userSlice'
 import {
 	favouritesHandler,
 	removeFromFavourites,
@@ -33,11 +34,13 @@ const Aside = ({
 
 	const navigate = useNavigate()
 
-	const { authenticated } = useContext(AuthenticationContext)
+	const isAuthenticated = useSelector(
+		(state) => state.userReducer.isAuthenticated
+	)
 
 	function handlerOrder() {
-		dispatch(cartHandler(false))
-		if (authenticated) {
+		dispatch(cartHandler())
+		if (isAuthenticated) {
 			navigate('/order')
 		} else {
 			navigate('/login')

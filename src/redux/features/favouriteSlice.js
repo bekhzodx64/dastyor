@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	favourites: localStorage.getItem('favourites')
-		? JSON.parse(localStorage.getItem('favourites'))
-		: [],
+	favourites: [],
 	favouritesTotalCount: 0,
 	showFavourites: false,
 }
@@ -30,8 +28,6 @@ const favouriteSlice = createSlice({
 				const tempProduct = { ...action.payload, count: 1 }
 				state.favourites.push(tempProduct)
 			}
-
-			localStorage.setItem('favourites', JSON.stringify(state.favourites))
 		},
 		removeFromFavourites: (state, action) => {
 			const nextCartItems = state.favourites.filter(
@@ -39,8 +35,6 @@ const favouriteSlice = createSlice({
 			)
 
 			state.favourites = nextCartItems
-
-			localStorage.setItem('favourites', JSON.stringify(state.favourites))
 		},
 		getFavouritesTotal: (state) => {
 			let { quantity } = state.favourites.reduce(

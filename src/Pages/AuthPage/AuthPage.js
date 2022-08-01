@@ -29,6 +29,7 @@ const SignupSchema = Yup.object().shape({
 const LoginPage = () => {
 	const navigate = useNavigate()
 	const [isExist, setIsExist] = useState(false)
+
 	const formik = useFormik({
 		initialValues: {
 			email: '',
@@ -56,6 +57,7 @@ const LoginPage = () => {
 				})
 		},
 	})
+	
 	return (
 		<section className='login-page'>
 			<div className='contact-wrapper'>

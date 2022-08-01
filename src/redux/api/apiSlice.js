@@ -5,6 +5,15 @@ export const apiSlice = createApi({
 	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
 	endpoints: (build) => ({
+		loginUser: build.mutation({
+			query: (body) => {
+				return {
+					url: '/token/',
+					method: 'post',
+					body,
+				}
+			},
+		}),
 		getBanners: build.query({
 			query: () => '/banners/',
 		}),
@@ -42,6 +51,7 @@ export const apiSlice = createApi({
 })
 
 export const {
+	useLoginUserMutation,
 	useGetBannersQuery,
 	useGetCategoriesQuery,
 	useGetProductsQuery,

@@ -6,9 +6,21 @@ import default_img from '../../Assets/Images/default__img.png'
 import AuthenticationContext from '../../Context/AuthenticationContext'
 import './UserMenu.css'
 
+import { useDispatch } from 'react-redux'
+import { logOutHandler } from '../../redux/features/userSlice'
+import { useNavigate } from 'react-router-dom'
+
 const UserMenu = ({ children }) => {
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
+
+	const logOut = () => {
+		dispatch(logOutHandler())
+		navigate('/')
+	}
+
 	const { userInfo } = useContext(UserInfoContext)
-	const { logOut } = useContext(AuthenticationContext)
+	// const { logOut } = useContext(AuthenticationContext)
 
 	return (
 		<section className='user-menu'>

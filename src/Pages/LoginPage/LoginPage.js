@@ -1,15 +1,23 @@
 import React, { useContext, useState } from 'react'
+import { useEffect } from 'react'
 import './LoginPage.css'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { loginUser } from '../../Repository/UserApi'
+// import { loginUser } from '../../Repository/UserApi'
 import { useNavigate } from 'react-router'
 import Modal from '../../Components/Modal'
-import { useCookies } from 'react-cookie'
+// import { useCookies } from 'react-cookie'
 import AuthenticationContext from '../../Context/AuthenticationContext'
 import Categories from '../../Components/Categories'
 
+import { useLoginUserMutation } from '../../redux/api/apiSlice'
+import { useDispatch } from 'react-redux'
+import {
+	authHandler,
+	saveToken,
+	saveRefreshToken,
+} from '../../redux/features/userSlice'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebookF } from 'react-icons/fa'
 
@@ -22,10 +30,12 @@ const LogInSchema = Yup.object().shape({
 })
 
 const LoginPage = () => {
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const [, setCookie] = useCookies([])
-	const [isAccountExist, setIsAccountExist] = useState(false)
-	const { setAuthenticated } = useContext(AuthenticationContext)
+
+	const [loginUser, { data: loginData, isSuccess, isError, error }] =
+		useLoginUserMutation()
+
 	const formik = useFormik({
 		initialValues: {
 			email: '',
@@ -35,18 +45,22 @@ const LoginPage = () => {
 		onSubmit: (values) => {
 			loginUser(values)
 				.then((res) => {
+					console.log(res)
 					if (res.data.access && res.data.refresh) {
-						setCookie('access', res.data.access, { path: '/' })
-						setCookie('refresh', res.data.refresh, { path: '/' })
-						setAuthenticated(true)
+						dispatch(authHandler(true))
+						dispatch(saveToken(res.data.access))
+						dispatch(saveRefreshToken(res.data.refresh))
 						navigate('/user/profile')
-						setIsAccountExist(true)
 					}
+					// if (res.data.access && res.data.refresh) {
+					// 	// setCookie('access', res.data.access, { path: '/' })
+					// 	// setCookie('refresh', res.data.refresh, { path: '/' })
+					// 	navigate('/user/profile')
+					// 	setIsAccountExist(true)
+					// }
 				})
-				.catch((err) => {
-					if (err.response.status === 401) {
-						setIsAccountExist(true)
-					}
+				.catch((error) => {
+					console.log(error)
 				})
 		},
 	})
@@ -113,14 +127,15 @@ const LoginPage = () => {
 					Don't have an account yet? <Link to={'/auth'}>Sign up!</Link>
 				</div>
 				<div>
-					{isAccountExist ? (
+					{/* {isAccountExist ? (
 						<Modal
 							setState={setIsAccountExist}
 							text={'No active account found with the given credentials'}
 						/>
-					) : null}
+					) : null} */}
 				</div>
 			</div>
+
 			<div className={'mobile__category'}>
 				<Categories />
 			</div>

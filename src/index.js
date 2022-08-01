@@ -9,13 +9,17 @@ import './Assets/Libs/bootstrap-grid.min.css'
 import './Assets/Libs/bootstrap-reboot.min.css'
 
 import { Provider } from 'react-redux'
-import { store } from './redux/store'
+import store, { persistor } from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import Spinner from './Components/Spinner'
 
 ReactDOM.render(
 	<Provider store={store}>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<PersistGate loading={<Spinner />} persistor={persistor}>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</PersistGate>
 	</Provider>,
 	document.getElementById('app')
 )
