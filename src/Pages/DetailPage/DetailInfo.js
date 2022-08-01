@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import default__img from '../../Assets/Images/default__img.png'
-import AuthenticationContext from '../../Context/AuthenticationContext'
 
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -14,18 +13,31 @@ import { MdOutlineShoppingCart } from 'react-icons/md'
 import { BiShare } from 'react-icons/bi'
 
 const DetailInfo = ({ product, stars, reviews, setModal }) => {
-	const { authenticated } = useContext(AuthenticationContext)
+	const isAuthenticated = useSelector(
+		(state) => state.userReducer.isAuthenticated
+	)
+
+	const [isItemExist, setIsItemExist] = useState(false)
+
 	const [selectedColor, setSelectedColor] = useState(null)
+	const [counter, setCounter] = useState(0)
 
 	const dispatch = useDispatch()
 	const [button, setButton] = useState(false)
 	const cartItems = useSelector((state) => state.cartReducer.cartItems)
 
 	useEffect(() => {
+		setIsItemExist(false)
+
 		const cartItemIndex = cartItems.find((item) => item.id === product.id)
 
+		if (cartItemIndex) {
+			setCounter(cartItemIndex.count)
+			setIsItemExist(true)
+		}
+
 		setButton(cartItemIndex)
-	}, [cartItems, product.id])
+	}, [cartItems, product.id, counter, isItemExist])
 
 	const handleAddToCart = () => {
 		dispatch(addToCart(product))
@@ -64,7 +76,7 @@ const DetailInfo = ({ product, stars, reviews, setModal }) => {
 					))}
 				</div>
 				<div>{reviews.count} отзывов</div>
-				{authenticated ? (
+				{isAuthenticated ? (
 					<div onClick={() => setModal(true)}>Оставить отзыв</div>
 				) : (
 					<div>
@@ -106,14 +118,29 @@ const DetailInfo = ({ product, stars, reviews, setModal }) => {
 			</div>
 			<div className='detail-page__buttons'>
 				<div className='detail-page__addmore'>
-					<span onClick={() => handleDecreaseItem(product)}>
-						<IoRemove style={{ color: '#FF3C20' }} />
-					</span>
-					<span>0</span>
+					{isItemExist ? (
+						<span onClick={() => handleDecreaseItem(product)}>
+							<IoRemove style={{ color: '#FF3C20' }} />
+						</span>
+					) : (
+						<span>
+							<IoRemove style={{ color: '#FF3C20' }} />
+						</span>
+					)}
+					<span>{counter}</span>
 					<span onClick={() => handleIncreaseItem(product)}>
 						<IoAdd style={{ color: '#FF3C20' }} />
 					</span>
 				</div>
+				{/* <div className='detail-page__addmore'>
+						<span onClick={decrease}>
+							<IoRemove style={{ color: '#FF3C20' }} />
+						</span>
+						<span>{counter}</span>
+						<span onClick={increase}>
+							<IoAdd style={{ color: '#FF3C20' }} />
+						</span>
+					</div> */}
 
 				<button onClick={handleAddToCart} className={button ? 'active' : null}>
 					<MdOutlineShoppingCart

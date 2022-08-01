@@ -16,7 +16,7 @@ const cartSlice = createSlice({
 			state.showCart = !state.showCart
 		},
 		addToCart: (state, action) => {
-			const itemIndex = state.cartItems.findIndex(
+			const itemIndex = state.cartItems.find(
 				(item) => item.id === action.payload.id
 			)
 
@@ -24,14 +24,12 @@ const cartSlice = createSlice({
 				(cartItem) => cartItem.id !== action.payload.id
 			)
 
-			if (itemIndex >= 0) {
+			if (itemIndex) {
 				state.cartItems = nextCartItems
 			} else {
-				const tempProduct = { ...action.payload, count: 1, color: 1 }
+				const tempProduct = { ...action.payload, count: 1 }
 				state.cartItems.push(tempProduct)
 			}
-
-			localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
 		},
 		removeFromCart: (state, action) => {
 			const nextCartItems = state.cartItems.filter(
@@ -39,8 +37,6 @@ const cartSlice = createSlice({
 			)
 
 			state.cartItems = nextCartItems
-
-			localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
 		},
 		increaseCartItemQuantity: (state, action) => {
 			const itemIndex = state.cartItems.findIndex(
@@ -49,9 +45,10 @@ const cartSlice = createSlice({
 
 			if (itemIndex >= 0) {
 				state.cartItems[itemIndex].count += 1
+			} else {
+				const tempProduct = { ...action.payload, count: 1 }
+				state.cartItems.push(tempProduct)
 			}
-
-			localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
 		},
 		decreaseCartItemQuantity: (state, action) => {
 			const itemIndex = state.cartItems.findIndex(
@@ -67,7 +64,6 @@ const cartSlice = createSlice({
 
 				state.cartItems = nextCartItems
 			}
-			localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
 		},
 		getTotals: (state) => {
 			let { quantity } = state.cartItems.reduce(
