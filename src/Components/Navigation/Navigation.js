@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Navigation.css'
 
 import logo from '../../Assets/Images/logo.png'
-import MenuContext from '../../Context/MenuContext'
-import TranslationContext from '../../Context/TranslationContext'
 import Search from '../Search'
 import LocationContext from '../../Context/LocationContext'
 
@@ -14,6 +12,7 @@ import {
 	favouritesHandler,
 	getFavouritesTotal,
 } from '../../redux/features/favouriteSlice'
+import { menuHandler } from '../../redux/features/menuSlice'
 import { BsHeart } from 'react-icons/bs'
 import { MdOutlineShoppingCart, MdLocationPin } from 'react-icons/md'
 import { AiFillCaretDown } from 'react-icons/ai'
@@ -22,20 +21,25 @@ import { FaRegUserCircle } from 'react-icons/fa'
 
 const Navigation = () => {
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
+
 	const isAuthenticated = useSelector(
 		(state) => state.userReducer.isAuthenticated
+	)
+	const { cartTotalCount, cartItems } = useSelector(
+		(state) => state.cartReducer
+	)
+	const { favouritesTotalCount, favourites } = useSelector(
+		(state) => state.favouriteReducer
 	)
 
 	const [term, setTerm] = useState('')
 	const [openCountry, setOpenCountry] = useState(false)
 	const [openLanguage, setOpenLanguage] = useState(false)
 	const [currLang, setCurrLang] = useState('Русский')
-	const { translation } = useContext(TranslationContext)
-	const { setCategoryOpen } = useContext(MenuContext)
 	const { currentLocation, locations, toggleSelectCountry } =
 		useContext(LocationContext)
 	const [termCountry, setTermCountry] = useState('')
-	const navigate = useNavigate()
 	const lang = localStorage.getItem('lang')
 	const countryRef = useRef(null)
 	const languages = useMemo(() => {
@@ -56,13 +60,6 @@ const Navigation = () => {
 			executeScroll()
 		}
 	}, [openCountry])
-
-	const { cartTotalCount, cartItems } = useSelector(
-		(state) => state.cartReducer
-	)
-	const { favouritesTotalCount, favourites } = useSelector(
-		(state) => state.favouriteReducer
-	)
 
 	useEffect(() => {
 		dispatch(getTotals())
@@ -107,6 +104,18 @@ const Navigation = () => {
 			{item.title}
 		</span>
 	))
+
+	const handleCart = () => {
+		dispatch(cartHandler())
+	}
+
+	const handleFav = () => {
+		dispatch(favouritesHandler())
+	}
+
+	const setShowMenu = () => {
+		dispatch(menuHandler())
+	}
 
 	return (
 		<header className='header'>
@@ -165,7 +174,7 @@ const Navigation = () => {
 								{isAuthenticated ? (
 									<Link to='/user/profile' className='personal__cabinet-link'>
 										<FaRegUserCircle style={{ fontSize: '18px' }} />
-										<span>{translation['account']}</span>
+										<span>Персональный кабинет</span>
 									</Link>
 								) : (
 									<div className='personal__cabinet-auth'>
@@ -211,14 +220,14 @@ const Navigation = () => {
 						</Link>
 						<Search term={term} setTerm={setTerm} onSubmit={onSubmit} />
 						<div className='user__actions'>
-							<div onClick={() => dispatch(favouritesHandler())}>
+							<div onClick={handleFav}>
 								<span data-quantity={favouritesTotalCount}>
 									<BsHeart style={{ color: '#ff5234', fontSize: '20px' }} />
 								</span>
 								<li>Избранные</li>
 							</div>
 
-							<div onClick={() => dispatch(cartHandler())}>
+							<div onClick={handleCart}>
 								<span data-quantity={cartTotalCount}>
 									<MdOutlineShoppingCart
 										style={{ color: '#ff5234', fontSize: '20px' }}
@@ -227,7 +236,7 @@ const Navigation = () => {
 								<li>Корзина</li>
 							</div>
 
-							<div className='menu__open' onClick={() => setCategoryOpen(true)}>
+							<div className='menu__open' onClick={setShowMenu}>
 								<RiMenu3Fill style={{ fontSize: '24px' }} />
 							</div>
 						</div>

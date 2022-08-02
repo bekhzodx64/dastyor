@@ -17,15 +17,15 @@ const NotFoundPage = lazy(() => import('../Pages/NotFoundPage/NotFoundPage'))
 const SearchPage = lazy(() => import('../Pages/SearchPage/SearchPage'))
 
 const AppRoutes = () => {
-	const authenticated = useSelector(
+	const isAuthenticated = useSelector(
 		(state) => state.userReducer.isAuthenticated
 	)
 
 	return (
 		<Suspense fallback={<Spinner />}>
 			<Routes>
-				<Route exact={true} path={'/'} element={<HomePage />} />
-				<Route exact={true} path={'/product/search'} element={<SearchPage />} />
+				<Route path={'/'} element={<HomePage />} />
+				<Route path={'/product/search'} element={<SearchPage />} />
 
 				<Route path={'/category/:url'} element={<ListPage />} />
 
@@ -39,17 +39,17 @@ const AppRoutes = () => {
 
 				<Route
 					path={'/user/profile'}
-					element={authenticated ? <UserProfile /> : <LoginPage />}
+					element={isAuthenticated ? <UserProfile /> : <LoginPage />}
 				/>
 
 				<Route
 					path={'/user/bookings'}
-					element={authenticated ? <UserBookings /> : <LoginPage />}
+					element={isAuthenticated ? <UserBookings /> : <LoginPage />}
 				/>
 
 				<Route
 					path={'/order'}
-					element={authenticated ? <OrderPage /> : <LoginPage />}
+					element={isAuthenticated ? <OrderPage /> : <LoginPage />}
 				/>
 
 				<Route path={'*'} element={<NotFoundPage />} />

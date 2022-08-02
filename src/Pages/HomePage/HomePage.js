@@ -1,12 +1,11 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import SwiperCore, { Pagination } from 'swiper'
-import 'swiper/modules/pagination/pagination.min.css'
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import Categories from '../../Components/Categories'
 import Spinner from '../../Components/Spinner'
-import './HomePage.css'
 import HomePageContent from './HomePageContent'
+import './HomePage.css'
+import 'swiper/modules/pagination/pagination.min.css'
 
 import {
 	useGetBannersQuery,

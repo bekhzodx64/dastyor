@@ -3,6 +3,7 @@ import { apiSlice } from './api/apiSlice'
 import cartReducer from './features/cartSlice'
 import favouriteReducer from './features/favouriteSlice'
 import userReducer from './features/userSlice'
+import menuReducer from './features/menuSlice'
 
 // localStorage
 import {
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
 	cartReducer,
 	favouriteReducer,
 	userReducer,
+	menuReducer,
 	[apiSlice.reducerPath]: apiSlice.reducer,
 })
 

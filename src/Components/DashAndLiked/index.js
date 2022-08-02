@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import Aside from '../Aside'
 
 import { useSelector } from 'react-redux'
@@ -9,21 +10,10 @@ const DashAndLiked = () => {
 	)
 
 	return (
-		<>
-			<Aside
-				type='favourite'
-				favourites={favourites}
-				title='Избранные'
-				showFavourites={showFavourites}
-			/>
-
-			<Aside
-				type='cart'
-				cartItems={cartItems}
-				title='Корзина'
-				showCart={showCart}
-			/>
-		</>
+		<Fragment>
+			<Aside favourites={favourites} title='Избранные' showFavourites={showFavourites} />
+			<Aside cartItems={cartItems} title='Корзина' showCart={showCart} />
+		</Fragment>
 	)
 }
 

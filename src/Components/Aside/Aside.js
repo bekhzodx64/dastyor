@@ -1,8 +1,8 @@
-import React from 'react'
-import './Aside.css'
+import { Fragment } from 'react'
 import itemNotFound from '../../Assets/Images/itemnofound.jpg'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
+import './Aside.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -21,7 +21,6 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 const Aside = ({
 	title,
 	showCart,
-	type,
 	cartItems,
 	showFavourites,
 	favourites,
@@ -29,7 +28,6 @@ const Aside = ({
 	const cart = useSelector((state) => state.cartReducer)
 	const favourite = useSelector((state) => state.favouriteReducer)
 	const dispatch = useDispatch()
-
 	const navigate = useNavigate()
 
 	const isAuthenticated = useSelector(
@@ -65,21 +63,26 @@ const Aside = ({
 		dispatch(removeFromFavourites(item))
 	}
 
+	const handleCart = () => {
+		dispatch(cartHandler())
+	}
+
+	const handleFav = () => {
+		dispatch(favouritesHandler())
+	}
+
 	return (
-		<>
+		<Fragment>
 			{showCart && (
-				<>
+				<Fragment>
 					<div className={showCart ? 'aside active' : 'aside'}>
 						<div className='aside__header'>
 							<h4>{title}</h4>
-							<IoClose
-								onClick={() => dispatch(cartHandler())}
-								style={{ fontSize: '24px' }}
-							/>
+							<IoClose onClick={handleCart} style={{ fontSize: '24px' }} />
 						</div>
 						<div className='aside__content'>
 							{typeof cartItems == 'undefined' ? (
-								<>
+								<Fragment>
 									<img
 										width={'100%'}
 										src={itemNotFound}
@@ -94,9 +97,9 @@ const Aside = ({
 									>
 										Нет результатов!
 									</p>
-								</>
+								</Fragment>
 							) : cartItems.length === 0 ? (
-								<>
+								<Fragment>
 									<img
 										width={'100%'}
 										src={itemNotFound}
@@ -111,10 +114,10 @@ const Aside = ({
 									>
 										Нет результатов!
 									</p>
-								</>
+								</Fragment>
 							) : (
 								cart.cartItems?.map((item) => (
-									<React.Fragment key={item.id}>
+									<Fragment key={item.id}>
 										<div className='aside__card'>
 											<img src={item.photo} alt={item.title} />
 											<div className='aside__detail'>
@@ -124,21 +127,17 @@ const Aside = ({
 													{item.title}
 												</Link>
 												<div>
-													{type === 'liked' ? null : (
-														<div className='aside__add'>
-															<span>
-																<IoRemove
-																	onClick={() => handleDecreaseItem(item)}
-																/>
-															</span>
-															<span>{item.count}</span>
-															<span>
-																<IoAdd
-																	onClick={() => handleIncreaseItem(item)}
-																/>
-															</span>
-														</div>
-													)}
+													<div className='aside__add'>
+														<span>
+															<IoRemove
+																onClick={() => handleDecreaseItem(item)}
+															/>
+														</span>
+														<span>{item.count}</span>
+														<span>
+															<IoAdd onClick={() => handleIncreaseItem(item)} />
+														</span>
+													</div>
 													<span className='aside__price'>
 														{numberWithCommas(item.price * item.count)}
 													</span>
@@ -149,40 +148,31 @@ const Aside = ({
 											</div>
 										</div>
 										<hr />
-									</React.Fragment>
+									</Fragment>
 								))
 							)}
 						</div>
-
-						{type === 'liked' ? null : (
-							<button
-								className='aside__button'
-								disabled={cartItems.length === 0}
-								onClick={handlerOrder}
-							>
-								Оформить
-							</button>
-						)}
+						<button
+							className='aside__button'
+							disabled={cartItems.length === 0}
+							onClick={handlerOrder}
+						>
+							Оформить
+						</button>
 					</div>
-					<div
-						className='aside__overlay'
-						onClick={() => dispatch(cartHandler())}
-					/>
-				</>
+					<div className='aside__overlay' onClick={handleCart} />
+				</Fragment>
 			)}
 			{showFavourites && (
-				<>
+				<Fragment>
 					<div className={showFavourites ? 'aside active' : 'aside'}>
 						<div className='aside__header'>
 							<h4>{title}</h4>
-							<IoClose
-								onClick={() => dispatch(favouritesHandler())}
-								style={{ fontSize: '24px' }}
-							/>
+							<IoClose onClick={handleFav} style={{ fontSize: '24px' }} />
 						</div>
 						<div className='aside__content'>
 							{typeof favourites == 'undefined' ? (
-								<>
+								<Fragment>
 									<img
 										width={'100%'}
 										src={itemNotFound}
@@ -197,9 +187,9 @@ const Aside = ({
 									>
 										Нет результатов!
 									</p>
-								</>
+								</Fragment>
 							) : favourites.length === 0 ? (
-								<>
+								<Fragment>
 									<img
 										width={'100%'}
 										src={itemNotFound}
@@ -214,10 +204,10 @@ const Aside = ({
 									>
 										Нет результатов!
 									</p>
-								</>
+								</Fragment>
 							) : (
 								favourite.favourites?.map((item) => (
-									<React.Fragment key={item.id}>
+									<Fragment key={item.id}>
 										<div className='aside__card'>
 											<img src={item.photo} alt={item.title} />
 											<div className='aside__detail'>
@@ -237,18 +227,15 @@ const Aside = ({
 											</div>
 										</div>
 										<hr />
-									</React.Fragment>
+									</Fragment>
 								))
 							)}
 						</div>
 					</div>
-					<div
-						className='aside__overlay'
-						onClick={() => dispatch(favouritesHandler())}
-					/>
-				</>
+					<div className='aside__overlay' onClick={handleFav} />
+				</Fragment>
 			)}
-		</>
+		</Fragment>
 	)
 }
 

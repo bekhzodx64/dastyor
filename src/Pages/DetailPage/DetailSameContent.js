@@ -1,4 +1,3 @@
-import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import Card from '../../Components/Card'
 

@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link } from 'react-router-dom'
-import TranslationContext from '../../Context/TranslationContext'
 import './Card.css'
 
 import { AiOutlineZoomIn } from 'react-icons/ai'
@@ -28,8 +27,6 @@ const Card = ({ cardInfo }) => {
 	const handleAddToFavourites = () => {
 		dispatch(addToFavorites(cardInfo))
 	}
-
-	const { translation } = useContext(TranslationContext)
 
 	function numberWithCommas(x) {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
@@ -81,7 +78,7 @@ const Card = ({ cardInfo }) => {
 						<div>
 							<span className='card__discount'>
 								{numberWithCommas(cardInfo.price)}
-							</span>{' '}
+							</span>
 							/
 							<span className='card__discountprice'>
 								{numberWithCommas(cardInfo.discounted_price)} UZS
@@ -103,11 +100,7 @@ const Card = ({ cardInfo }) => {
 						className={button ? 'active' : null}
 					>
 						<MdOutlineShoppingCart />
-						{!button ? (
-							<span>{translation['addToCart']}</span>
-						) : (
-							<span>{translation['added']}</span>
-						)}
+						{!button ? <span>В корзину</span> : <span>Добавлено</span>}
 					</button>
 				</div>
 			</div>

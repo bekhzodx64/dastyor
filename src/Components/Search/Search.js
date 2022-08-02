@@ -1,18 +1,18 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import './Search.css'
 import SpeechRecognition, {
 	useSpeechRecognition,
 } from 'react-speech-recognition'
-import TranslationContext from '../../Context/TranslationContext'
-import MenuContext from '../../Context/MenuContext'
 
+import { useDispatch } from 'react-redux'
+import { menuHandler } from '../../redux/features/menuSlice'
 import { RiSearchLine } from 'react-icons/ri'
 import { MdKeyboardVoice } from 'react-icons/md'
 
 const Search = ({ onSubmit, term, setTerm }) => {
+	const dispatch = useDispatch()
+
 	const { transcript } = useSpeechRecognition()
-	const { translation } = useContext(TranslationContext)
-	const { setCategoryOpen } = useContext(MenuContext)
 	const [voice, setVoice] = useState(false)
 
 	function onSearch(e) {
@@ -27,7 +27,7 @@ const Search = ({ onSubmit, term, setTerm }) => {
 		<div className='search'>
 			<input
 				type='search'
-				placeholder={translation['productSearch']}
+				placeholder='Поиск товара'
 				value={term}
 				onClick={() => setVoice(false)}
 				onChange={onSearch}
@@ -46,7 +46,7 @@ const Search = ({ onSubmit, term, setTerm }) => {
 					disabled={term.length === 0}
 					onClick={(e) => {
 						onSubmit(e)
-						setCategoryOpen(false)
+						dispatch(menuHandler())
 					}}
 				>
 					<RiSearchLine style={{ fontSize: '20px' }} />

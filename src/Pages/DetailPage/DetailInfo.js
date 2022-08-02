@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import default__img from '../../Assets/Images/default__img.png'
 
@@ -58,7 +58,7 @@ const DetailInfo = ({ product, stars, reviews, setModal }) => {
 	}
 
 	return (
-		<React.Fragment>
+		<Fragment>
 			<h4 className='detail-page__title'>{product.title}</h4>
 			<div className='detail-page__rated'>
 				<div>
@@ -90,18 +90,18 @@ const DetailInfo = ({ product, stars, reviews, setModal }) => {
 						Цена: {numberWithCommas(`${product.price}`)} UZS
 					</span>
 				) : (
-					<>
+					<Fragment>
 						<span>
 							Цена: {numberWithCommas(`${product.discounted_price}`)} UZS
 						</span>
 						<span>{numberWithCommas(`${product.price}`)}</span>
 						<span>{product.discount}% скидка</span>
-					</>
+					</Fragment>
 				)}
 			</div>
 			<div className='detail-page__exists'>
 				{product.color.length === 0 ? null : (
-					<>
+					<Fragment>
 						<h5>Доступные цвета:</h5>
 						<div>
 							{product.color.map((item, index) => (
@@ -113,7 +113,7 @@ const DetailInfo = ({ product, stars, reviews, setModal }) => {
 								/>
 							))}
 						</div>
-					</>
+					</Fragment>
 				)}
 			</div>
 			<div className='detail-page__buttons'>
@@ -196,7 +196,7 @@ const DetailInfo = ({ product, stars, reviews, setModal }) => {
 					</div>
 				</div>
 			</div>
-		</React.Fragment>
+		</Fragment>
 	)
 }
 

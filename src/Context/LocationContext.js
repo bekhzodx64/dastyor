@@ -6,7 +6,6 @@ const LocationContext = createContext({
   locations: [],
   toggleSelectCountry: (code) => {
   }
-
 });
 
 export function LocationContextProvider({children}) {

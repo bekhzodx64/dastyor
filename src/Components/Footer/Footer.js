@@ -1,14 +1,12 @@
-import React from 'react'
-import './Footer.css'
+import { Link } from 'react-router-dom'
+import app_icon from '../../Assets/Images/app_icon.png'
+import comission from '../../Assets/Images/comissions.png'
 import fast_delivery from '../../Assets/Images/fast_delivery.png'
 import payment from '../../Assets/Images/payment.png'
-import comission from '../../Assets/Images/comissions.png'
-import app_icon from '../../Assets/Images/app_icon.png'
-import { Link } from 'react-router-dom'
+import './Footer.css'
 
 import { BsTwitter } from 'react-icons/bs'
-import { FaFacebookF } from 'react-icons/fa'
-import { FaGooglePlusG } from 'react-icons/fa'
+import { FaFacebookF, FaGooglePlusG } from 'react-icons/fa'
 
 const Footer = () => {
 	return (

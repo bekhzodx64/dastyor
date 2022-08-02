@@ -1,18 +1,18 @@
-import React, { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useParams } from 'react-router'
-import 'swiper/modules/autoplay/autoplay.min.css'
 import Spinner from '../../Components/Spinner'
 import DetailDescription from './DetailDescription'
 import DetailCharacteristics from './DetailCharacteristics'
 import DetailComment from './DetailComment'
 import DetailNavigation from './DetailNavigation'
 import DetailCarousel from './DetailCarousel'
-import './DetailPage.css'
 import Categories from '../../Components/Categories'
 import DetailInfo from './DetailInfo'
 import DetailSameContent from './DetailSameContent'
 import DetailModal from './DetailModal'
 import DetailPayMethods from './DetailPayMethods'
+import './DetailPage.css'
+import 'swiper/modules/autoplay/autoplay.min.css'
 
 import {
 	useGetDetailProductQuery,

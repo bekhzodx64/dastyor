@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { postComment } from '../../Repository/ProductsApi'
 
 const DetailModal = ({ modal, setModal, stars, product }) => {
@@ -28,8 +28,8 @@ const DetailModal = ({ modal, setModal, stars, product }) => {
 	}
 
 	return (
-		<>
-			{modal ? (
+		<Fragment>
+			{modal && (
 				<div className='detail-page__review'>
 					<div className='review__wrapper'>
 						<div className='detail-page__review-close'>
@@ -99,8 +99,8 @@ const DetailModal = ({ modal, setModal, stars, product }) => {
 						</form>
 					</div>
 				</div>
-			) : null}
-		</>
+			)}
+		</Fragment>
 	)
 }
 

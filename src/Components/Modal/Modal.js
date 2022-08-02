@@ -1,5 +1,5 @@
-import React from 'react'
 import './Modal.css'
+
 const Modal = ({ setState, text }) => {
 	return (
 		<div id='popup1' className='overlay'>

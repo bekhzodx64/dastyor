@@ -57,7 +57,7 @@ const LoginPage = () => {
 				})
 		},
 	})
-	
+
 	return (
 		<section className='login-page'>
 			<div className='contact-wrapper'>
@@ -154,16 +154,16 @@ const LoginPage = () => {
 					</ul>
 				</div>
 				<div style={{ textAlign: 'center' }}>
-					Have an account? <Link to={'/login'}>Sign in!</Link>
+					Have an account? <Link to='/login'>Sign in!</Link>
 				</div>
-				{isExist === true ? (
+				{isExist && (
 					<Modal
 						setState={setIsExist}
-						text={'With this email, user already exists!'}
+						text='With this email, user already exists!'
 					/>
-				) : null}
+				)}
 			</div>
-			<div className={'mobile__category'}>
+			<div className='mobile__category'>
 				<Categories />
 			</div>
 		</section>
