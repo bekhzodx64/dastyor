@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react'
 import './LoginPage.css'
 import { Link } from 'react-router-dom'
@@ -30,6 +30,8 @@ const LoginPage = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
+	const [isAccountExist, setIsAccountExist] = useState(false)
+
 	const [loginUser, { data: loginData, isSuccess, isError, error }] =
 		useLoginUserMutation()
 
@@ -42,22 +44,16 @@ const LoginPage = () => {
 		onSubmit: (values) => {
 			loginUser(values)
 				.then((res) => {
-					console.log(res)
 					if (res.data.access && res.data.refresh) {
 						dispatch(authHandler(true))
 						dispatch(saveToken(res.data.access))
 						dispatch(saveRefreshToken(res.data.refresh))
 						navigate('/user/profile')
+						setIsAccountExist(true)
 					}
-					// if (res.data.access && res.data.refresh) {
-					// 	// setCookie('access', res.data.access, { path: '/' })
-					// 	// setCookie('refresh', res.data.refresh, { path: '/' })
-					// 	navigate('/user/profile')
-					// 	setIsAccountExist(true)
-					// }
 				})
 				.catch((error) => {
-					console.log(error)
+					setIsAccountExist(true)
 				})
 		},
 	})
@@ -109,7 +105,7 @@ const LoginPage = () => {
 					</header>
 					<ul>
 						<li>
-							<a href='https://google.com/' className='youtube'>
+							<a href='https://google.com/' className='google'>
 								<FcGoogle style={{ fontSize: '32px' }} />
 							</a>
 						</li>
@@ -124,16 +120,16 @@ const LoginPage = () => {
 					Don't have an account yet? <Link to={'/auth'}>Sign up!</Link>
 				</div>
 				<div>
-					{/* {isAccountExist ? (
+					{isAccountExist && (
 						<Modal
 							setState={setIsAccountExist}
-							text={'No active account found with the given credentials'}
+							text='No active account found with the given credentials'
 						/>
-					) : null} */}
+					)}
 				</div>
 			</div>
 
-			<div className={'mobile__category'}>
+			<div className='mobile__category'>
 				<Categories />
 			</div>
 		</section>

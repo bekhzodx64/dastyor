@@ -12,26 +12,26 @@
 	width: 25em;
 	padding: 2em;
 
-	background: #FFF;
+	background: #fff;
 	box-shadow: 0 2px 11px 0 rgb(0 0 0 / 5%);
 }
 
 .login-cta > h2 {
 	text-align: center;
 
-	color: #3E3F5E;
+	color: #3e3f5e;
 
 	font-size: 1.75rem;
 }
 
 .socials-wrapper > header > h2 {
 	position: relative;
-	z-index: 1;
+	z-index: 0;
 
 	text-align: center;
 
-	color: #3E3F5E;
-	background: #FFF;
+	color: #3e3f5e;
+	background: #fff;
 
 	font-size: 1rem;
 }
@@ -46,10 +46,10 @@
 	width: 17.5%;
 	height: 0.1em;
 
-	content: "";
+	content: '';
 	transform: translateY(-50%);
 
-	background: #D3D3E2;
+	background: #d3d3e2;
 }
 
 .socials-wrapper > header > h2::after {
@@ -85,19 +85,19 @@
 	text-align: center;
 	text-decoration: none;
 
-	color: #FFF;
+	color: #fff;
 }
 
 .socials-wrapper > ul > li > a.facebook {
-	background-color: #3763D2;
+	background-color: #3763d2;
 }
 
 .socials-wrapper > ul > li > a.twitter {
-	background-color: #1ABCFF;
+	background-color: #1abcff;
 }
 
 .socials-wrapper > ul > li > a.twitch {
-	background-color: #7B5DFA;
+	background-color: #7b5dfa;
 }
 
 .socials-wrapper > ul > li > a.youtube {
@@ -137,8 +137,8 @@
 	transform: translateY(-50%);
 	pointer-events: none;
 
-	color: #ADAFCA;
-	background: #FFF;
+	color: #adafca;
+	background: #fff;
 
 	font-size: 15px;
 	font-weight: 400;
@@ -158,11 +158,11 @@ form > .form-row > button {
 	transition: 100ms ease all;
 }
 
-.login-page form > .form-row > input[type="text"],
-form > .form-row > input[type="password"],
-.login-page form > .form-row > input[type="text"],
-form > .form-row > input[type="email"] {
-	border: 0.075em solid #DDD;
+.login-page form > .form-row > input[type='text'],
+form > .form-row > input[type='password'],
+.login-page form > .form-row > input[type='text'],
+form > .form-row > input[type='email'] {
+	border: 0.075em solid #ddd;
 }
 
 .login-page form > .form-row > input:valid + span {
@@ -205,7 +205,7 @@ form > .form-row > input[type="email"] {
 	cursor: pointer;
 	transition: all 300ms ease;
 
-	color: #FFF;
+	color: #fff;
 	border: 0.1em solid var(--main-color);
 	background-color: var(--main-color);
 }

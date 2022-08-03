@@ -1,5 +1,5 @@
-import './NotFoundPage.css'
 import { Link } from 'react-router-dom'
+import './NotFoundPage.css'
 
 const NotFoundPage = () => {
 	window.scrollTo(null, 0)

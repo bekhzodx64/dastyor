@@ -1,3 +1,3 @@
-import UserBookings from "./UserBookings";
+import UserBookings from './UserBookings'
 
-export default UserBookings;
+export default UserBookings

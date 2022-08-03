@@ -1,4 +1,3 @@
-import React from 'react'
 import Table from '../../Components/Table'
 import UserMenu from '../../Components/UserMenu'
 
