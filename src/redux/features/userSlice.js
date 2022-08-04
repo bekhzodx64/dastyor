@@ -4,10 +4,11 @@ const initialState = {
 	isAuthenticated: false,
 	first_name: '',
 	last_name: '',
+	photo: '',
 	email: '',
 	phone: '',
-	accessToken: '',
-	refreshToken: '',
+	token: '',
+	refresh: '',
 	location: '',
 	locationCode: '',
 	language: '',
@@ -22,15 +23,24 @@ const userSlice = createSlice({
 			state.isAuthenticated = payload
 		},
 		saveToken: (state, { payload }) => {
-			state.accessToken = payload
+			state.token = payload
 		},
 		saveRefreshToken: (state, { payload }) => {
-			state.refreshToken = payload
+			state.refresh = payload
 		},
 		logOutHandler: (state) => {
 			state.isAuthenticated = false
-			state.accessToken = ''
-			state.refreshToken = ''
+			state.token = ''
+			state.refresh = ''
+			state.first_name = ''
+			state.last_name = ''
+			state.photo = ''
+			state.email = ''
+			state.phone = ''
+			state.location = ''
+			state.locationCode = ''
+			state.language = ''
+			state.languageCode = ''
 		},
 		setLocation: (state, { payload }) => {
 			state.location = payload
@@ -38,12 +48,27 @@ const userSlice = createSlice({
 		setLocationCode: (state, { payload }) => {
 			state.locationCode = payload
 		},
+		setLanguage: (state, { payload }) => {
+			state.language = payload
+		},
+		saveFirstName: (state, { payload }) => {
+			state.first_name = payload
+		},
+		saveLastName: (state, { payload }) => {
+			state.last_name = payload
+		},
+		savePhoto: (state, { payload }) => {
+			state.photo = payload
+		},
 	},
 })
 
 export const {
 	authHandler,
 	saveToken,
+	saveFirstName,
+	saveLastName,
+	savePhoto,
 	saveRefreshToken,
 	logOutHandler,
 	setLocation,

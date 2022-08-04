@@ -29,8 +29,6 @@ const Navigation = () => {
 	const { data: countriesApi, isLoading: countriesIsLoading } =
 		useGetCountriesQuery([])
 
-	console.log(countriesApi)
-
 	const isAuthenticated = useSelector(
 		(state) => state.userReducer.isAuthenticated
 	)

@@ -64,16 +64,6 @@ const cartSlice = createSlice({
 			}
 		},
 		getTotals: (state) => {
-			// let { quantity } = state.cartItems.reduce(
-			// 	(cartTotal, cartItem) => {
-			// 		const { count } = cartItem
-			// 		cartTotal.quantity = count
-			// 		return cartTotal
-			// 	},
-			// 	{
-			// 		quantity: 0,
-			// 	}
-			// )
 			state.cartTotalCount = state.cartItems.length
 		},
 	},

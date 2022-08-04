@@ -165,7 +165,7 @@
 }
 
 .aside__detail > div button:hover svg {
-	stroke: white;
+	fill: white;
 }
 
 .aside__add {

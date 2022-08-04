@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
 })
 
 const persistConfig = {
-	key: 'states',
+	key: 'root',
 	storage,
 	blacklist: [apiSlice.reducerPath],
 }

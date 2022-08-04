@@ -12,7 +12,7 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { IoIosLogOut } from 'react-icons/io'
 import { BsCart3 } from 'react-icons/bs'
 
-const UserMenu = ({ children }) => {
+const UserMenu = ({ children, first_name }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
@@ -40,7 +40,7 @@ const UserMenu = ({ children }) => {
 									src={userInfo.photo != null ? userInfo.photo : default_img}
 									alt='Dastyor Express'
 								/>
-								<h3>undefiend</h3>
+								<h3>{first_name}</h3>
 							</div>
 							<Link className='user__link' to={'/user/bookings'}>
 								<BsCart3 />

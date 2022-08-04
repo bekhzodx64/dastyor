@@ -6,9 +6,14 @@ export const apiSlice = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: API_URL,
 		prepareHeaders: (headers, { getState }) => {
-			const token = getState().userReducer.accessToken
+			const { token, location } = getState().userReducer
 
-			headers.set('Content-type', 'application/json')
+			// getting information from localStorage
+			// const { userReducer } = JSON.parse(localStorage.getItem('persist:root'))
+			// const { location } = JSON.parse(userReducer)
+
+			headers.set('Accept-Country', `${location != null ? location : ''}`)
+			// headers.set('Accept-Language', `${lang != null ? lang : 'ru'}`)
 
 			if (token) {
 				headers.set('Authorization', `Bearer ${token}`)
@@ -26,6 +31,9 @@ export const apiSlice = createApi({
 					body,
 				}
 			},
+		}),
+		getUserInfo: build.query({
+			query: (id) => `/client/${id}`,
 		}),
 		getCountries: build.query({
 			query: () => '/countries/',
@@ -68,6 +76,7 @@ export const apiSlice = createApi({
 
 export const {
 	useLoginUserMutation,
+	useGetUserInfoQuery,
 	useGetCountriesQuery,
 	useGetBannersQuery,
 	useGetCategoriesQuery,

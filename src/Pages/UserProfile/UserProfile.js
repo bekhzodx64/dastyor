@@ -1,15 +1,33 @@
-import React, { useContext, useState, useEffect } from 'react'
-import UserMenu from '../../Components/UserMenu'
-import './UserProfile.css'
-import { changeUserInfo, getUserInfo } from '../../Repository/UserApi'
-import UserInfoContext from '../../Context/UserInfoContext'
+import React, { useContext, useEffect, useState } from 'react'
 import default_img from '../../Assets/Images/default__img.png'
+import UserMenu from '../../Components/UserMenu'
+import UserInfoContext from '../../Context/UserInfoContext'
+import { changeUserInfo, getUserInfo } from '../../Repository/UserApi'
+import './UserProfile.css'
 
+import jwt_decode from 'jwt-decode'
 import { FiEdit } from 'react-icons/fi'
+import { useDispatch, useSelector } from 'react-redux'
+import Spinner from '../../Components/Spinner'
+import { useGetUserInfoQuery } from '../../redux/api/apiSlice'
+import {
+	saveFirstName,
+	saveLastName,
+	savePhoto,
+} from '../../redux/features/userSlice'
+import { IoClose } from 'react-icons/io5'
 
 const UserProfile = () => {
+	const dispatch = useDispatch()
 	const [modal, setModal] = useState(false)
 	const { userInfo, setUserInfo } = useContext(UserInfoContext)
+
+	const { token, first_name, last_name, photo } = useSelector(
+		(state) => state.userReducer
+	)
+	const { user_id } = jwt_decode(token)
+	const id = user_id - 1
+	const { data: user, isLoading, isSuccess } = useGetUserInfoQuery(id)
 
 	const [initialValues, setInitialValues] = useState({
 		id: null,
@@ -50,15 +68,27 @@ const UserProfile = () => {
 			.catch((err) => console.log(err))
 	}
 
+	useEffect(() => {
+		if (isSuccess) {
+			dispatch(saveFirstName(user.first_name))
+			dispatch(saveLastName(user.last_name))
+			dispatch(savePhoto(user.photo))
+		}
+	}, [dispatch, user, isSuccess])
+
+	if (isLoading) {
+		return <Spinner />
+	}
+
 	return (
-		<UserMenu>
+		<UserMenu first_name={first_name}>
 			<div className='user-profile'>
 				<div className='user-profile__img'>
 					<img
-						src={userInfo.photo != null ? userInfo.photo : default_img}
-						alt='Dastyor Express'
+						src={photo != null ? photo : default_img}
+						alt={`${first_name}_${last_name}`}
 					/>
-					<h3>{userInfo.first_name + ' ' + userInfo.last_name}</h3>
+					<h3>{`${first_name} ${last_name}`}</h3>
 					<FiEdit onClick={() => setModal(true)} style={{ fontSize: '24px' }} />
 				</div>
 				<div className='user-profile__info'>
@@ -73,16 +103,8 @@ const UserProfile = () => {
 				</div>
 				<div className={modal ? 'profile__change active' : 'profile__change'}>
 					<form className='profile__form' onSubmit={_onSubmit}>
-						<svg
-							onClick={() => setModal(false)}
-							xmlns='http://www.w3.org/2000/svg'
-							viewBox='0 0 24 24'
-							width='24'
-							height='24'
-						>
-							<path fill='none' d='M0 0h24v24H0z' />
-							<path d='M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z' />
-						</svg>
+						<IoClose onClick={() => setModal(false)} />
+
 						<div className='profile__img'>
 							<img
 								src={

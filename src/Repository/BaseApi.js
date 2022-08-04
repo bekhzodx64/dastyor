@@ -9,7 +9,7 @@ export const getData = async (url) => {
 	const country = JSON.parse(localStorage.getItem('country'))
 	const res = await axios.get(_apiBase + url, {
 		headers: {
-			'Content-type': 'application/json',	
+			'Content-type': 'application/json',
 			'Accept-Language': lang != null ? lang : 'ru',
 			'Accept-Country': country != null ? country.code : '',
 		},
