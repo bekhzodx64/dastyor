@@ -10,7 +10,7 @@ import { FiEdit } from 'react-icons/fi'
 const UserProfile = () => {
 	const [modal, setModal] = useState(false)
 	const { userInfo, setUserInfo } = useContext(UserInfoContext)
-	
+
 	const [initialValues, setInitialValues] = useState({
 		id: null,
 		first_name: '',

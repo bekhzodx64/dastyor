@@ -8,6 +8,10 @@ const initialState = {
 	phone: '',
 	accessToken: '',
 	refreshToken: '',
+	location: '',
+	locationCode: '',
+	language: '',
+	langCode: '',
 }
 
 const userSlice = createSlice({
@@ -28,9 +32,22 @@ const userSlice = createSlice({
 			state.accessToken = ''
 			state.refreshToken = ''
 		},
+		setLocation: (state, { payload }) => {
+			state.location = payload
+		},
+		setLocationCode: (state, { payload }) => {
+			state.locationCode = payload
+		},
 	},
 })
 
-export const { authHandler, saveToken, saveRefreshToken, logOutHandler } =
-	userSlice.actions
+export const {
+	authHandler,
+	saveToken,
+	saveRefreshToken,
+	logOutHandler,
+	setLocation,
+	setLocationCode,
+} = userSlice.actions
+
 export default userSlice.reducer

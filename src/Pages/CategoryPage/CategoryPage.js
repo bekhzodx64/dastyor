@@ -20,7 +20,7 @@ const CategoryPage = () => {
 					<div className='col-md-12'>
 						<h2 className='title'>Все категории</h2>
 					</div>
-					{categories.map((item) => (
+					{categories?.map((item) => (
 						<div className='col-lg-2 col-md-3 col-sm-4 col-6' key={item.id}>
 							<Link to={item.slug} className='category__card'>
 								<div className='category__img'>

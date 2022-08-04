@@ -13,6 +13,9 @@ import {
 	getFavouritesTotal,
 } from '../../redux/features/favouriteSlice'
 import { menuHandler } from '../../redux/features/menuSlice'
+import { useGetCountriesQuery } from '../../redux/api/apiSlice'
+import { setLocation, setLocationCode } from '../../redux/features/userSlice'
+
 import { BsHeart } from 'react-icons/bs'
 import { MdOutlineShoppingCart, MdLocationPin } from 'react-icons/md'
 import { AiFillCaretDown } from 'react-icons/ai'
@@ -22,6 +25,11 @@ import { FaRegUserCircle } from 'react-icons/fa'
 const Navigation = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
+	const { data: countriesApi, isLoading: countriesIsLoading } =
+		useGetCountriesQuery([])
+
+	console.log(countriesApi)
 
 	const isAuthenticated = useSelector(
 		(state) => state.userReducer.isAuthenticated
@@ -34,7 +42,9 @@ const Navigation = () => {
 	)
 
 	const [term, setTerm] = useState('')
+
 	const [openCountry, setOpenCountry] = useState(false)
+
 	const [openLanguage, setOpenLanguage] = useState(false)
 	const [currLang, setCurrLang] = useState('Русский')
 	const { currentLocation, locations, toggleSelectCountry } =
@@ -116,6 +126,11 @@ const Navigation = () => {
 	const setShowMenu = () => {
 		dispatch(menuHandler())
 	}
+
+	useEffect(() => {
+		dispatch(setLocationCode(countriesApi?.current?.code))
+		dispatch(setLocation(countriesApi?.current?.title))
+	}, [countriesIsLoading])
 
 	return (
 		<header className='header'>

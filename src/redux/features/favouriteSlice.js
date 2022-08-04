@@ -37,17 +37,7 @@ const favouriteSlice = createSlice({
 			state.favourites = nextCartItems
 		},
 		getFavouritesTotal: (state) => {
-			let { quantity } = state.favourites.reduce(
-				(favouriteTotal, favouriteItem) => {
-					const { count } = favouriteItem
-					favouriteTotal.quantity += count
-					return favouriteTotal
-				},
-				{
-					quantity: 0,
-				}
-			)
-			state.favouritesTotalCount = quantity
+			state.favouritesTotalCount = state.favourites.length
 		},
 	},
 })
@@ -58,4 +48,5 @@ export const {
 	removeFromFavourites,
 	getFavouritesTotal,
 } = favouriteSlice.actions
+
 export default favouriteSlice.reducer

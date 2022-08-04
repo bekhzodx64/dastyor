@@ -3,7 +3,20 @@ import { API_URL } from '../../config'
 
 export const apiSlice = createApi({
 	reducerPath: 'api',
-	baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+	baseQuery: fetchBaseQuery({
+		baseUrl: API_URL,
+		prepareHeaders: (headers, { getState }) => {
+			const token = getState().userReducer.accessToken
+
+			headers.set('Content-type', 'application/json')
+
+			if (token) {
+				headers.set('Authorization', `Bearer ${token}`)
+			}
+
+			return headers
+		},
+	}),
 	endpoints: (build) => ({
 		loginUser: build.mutation({
 			query: (body) => {
@@ -13,6 +26,9 @@ export const apiSlice = createApi({
 					body,
 				}
 			},
+		}),
+		getCountries: build.query({
+			query: () => '/countries/',
 		}),
 		getBanners: build.query({
 			query: () => '/banners/',
@@ -52,6 +68,7 @@ export const apiSlice = createApi({
 
 export const {
 	useLoginUserMutation,
+	useGetCountriesQuery,
 	useGetBannersQuery,
 	useGetCategoriesQuery,
 	useGetProductsQuery,

@@ -15,4 +15,5 @@ const menuSlice = createSlice({
 })
 
 export const { menuHandler } = menuSlice.actions
+
 export default menuSlice.reducer

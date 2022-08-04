@@ -24,35 +24,26 @@ const AppRoutes = () => {
 	return (
 		<Suspense fallback={<Spinner />}>
 			<Routes>
-				<Route path={'/'} element={<HomePage />} />
-				<Route path={'/product/search'} element={<SearchPage />} />
-
-				<Route path={'/category/:url'} element={<ListPage />} />
-
-				<Route path={'/category/:url/:main_url'} element={<DetailPage />} />
-
-				<Route path={'/login'} element={<LoginPage />} />
-
-				<Route path={'/auth'} element={<AuthPage />} />
-
-				<Route path={'/category'} element={<CategoryPage />} />
-
+				<Route path='/' element={<HomePage />} />
+				<Route path='/product/search' element={<SearchPage />} />
+				<Route path='/category/:url' element={<ListPage />} />
+				<Route path='/category/:url/:main_url' element={<DetailPage />} />
+				<Route path='/login' element={<LoginPage />} />
+				<Route path='/auth' element={<AuthPage />} />
+				<Route path='/category' element={<CategoryPage />} />
 				<Route
-					path={'/user/profile'}
+					path='/user/profile'
 					element={isAuthenticated ? <UserProfile /> : <LoginPage />}
 				/>
-
 				<Route
-					path={'/user/bookings'}
+					path='/user/bookings'
 					element={isAuthenticated ? <UserBookings /> : <LoginPage />}
 				/>
-
 				<Route
-					path={'/order'}
+					path='/order'
 					element={isAuthenticated ? <OrderPage /> : <LoginPage />}
 				/>
-
-				<Route path={'*'} element={<NotFoundPage />} />
+				<Route path='*' element={<NotFoundPage />} />
 			</Routes>
 		</Suspense>
 	)

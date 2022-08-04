@@ -46,7 +46,7 @@ const Categories = () => {
 					<Search setTerm={setTerm} term={term} onSubmit={onSubmit} />
 				</div>
 				<ul className='categories__first'>
-					{categories.map((category, index) => (
+					{categories?.map((category, index) => (
 						<li key={category.id} onClick={setShowMenu}>
 							<NavLink to={`/category/${category.slug}`}>
 								<span>

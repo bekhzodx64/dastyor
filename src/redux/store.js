@@ -5,7 +5,7 @@ import favouriteReducer from './features/favouriteSlice'
 import userReducer from './features/userSlice'
 import menuReducer from './features/menuSlice'
 
-// localStorage
+// autosave states to localStorage
 import {
 	persistStore,
 	persistReducer,
@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
 })
 
 const persistConfig = {
-	key: 'root',
+	key: 'states',
 	storage,
 	blacklist: [apiSlice.reducerPath],
 }
