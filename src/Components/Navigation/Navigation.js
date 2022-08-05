@@ -26,8 +26,11 @@ const Navigation = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const { data: countriesApi, isLoading: countriesIsLoading } =
-		useGetCountriesQuery([])
+	const {
+		data: countriesApi,
+		isLoading: countriesIsLoading,
+		isSuccess: countriesIsSuccess,
+	} = useGetCountriesQuery([])
 
 	const isAuthenticated = useSelector(
 		(state) => state.userReducer.isAuthenticated
@@ -39,17 +42,17 @@ const Navigation = () => {
 		(state) => state.favouriteReducer
 	)
 
-	const [term, setTerm] = useState('')
-
 	const [openCountry, setOpenCountry] = useState(false)
-
-	const [openLanguage, setOpenLanguage] = useState(false)
-	const [currLang, setCurrLang] = useState('Русский')
 	const { currentLocation, locations, toggleSelectCountry } =
 		useContext(LocationContext)
 	const [termCountry, setTermCountry] = useState('')
-	const lang = localStorage.getItem('lang')
 	const countryRef = useRef(null)
+
+	const [term, setTerm] = useState('')
+	const [openLanguage, setOpenLanguage] = useState(false)
+	const [currLang, setCurrLang] = useState('Русский')
+	const lang = localStorage.getItem('lang')
+
 	const languages = useMemo(() => {
 		return [
 			{ lang: 'UZ', label: 'Uzbek' },
@@ -58,60 +61,60 @@ const Navigation = () => {
 		]
 	}, [])
 
-	useEffect(() => {
-		const selectedLang = languages.filter((item) => item.lang === lang)
-		setCurrLang(lang != null ? selectedLang[0].label : 'Русский')
-	}, [languages, lang])
+	// useEffect(() => {
+	// 	const selectedLang = languages.filter((item) => item.lang === lang)
+	// 	setCurrLang(lang != null ? selectedLang[0].label : 'Русский')
+	// }, [languages, lang])
 
-	useEffect(() => {
-		if (openCountry) {
-			executeScroll()
-		}
-	}, [openCountry])
+	// useEffect(() => {
+	// 	if (openCountry) {
+	// 		executeScroll()
+	// 	}
+	// }, [openCountry])
 
 	useEffect(() => {
 		dispatch(getTotals())
 		dispatch(getFavouritesTotal())
 	}, [cartItems, favourites, dispatch])
 
-	const executeScroll = () =>
-		countryRef.current?.scrollIntoView({ block: 'nearest' })
+	// const executeScroll = () =>
+	// 	countryRef.current?.scrollIntoView({ block: 'nearest' })
 
-	function onChangeLang(lang, label) {
-		localStorage.setItem('lang', `${lang}`)
-		setCurrLang(label)
-		document.location.reload()
-	}
+	// function onChangeLang(lang, label) {
+	// 	localStorage.setItem('lang', `${lang}`)
+	// 	setCurrLang(label)
+	// 	document.location.reload()
+	// }
 
-	function onSubmit(e) {
-		e.preventDefault()
-		navigate(`/product/search?q=${term}`)
-	}
+	// function onSubmit(e) {
+	// 	e.preventDefault()
+	// 	navigate(`/product/search?q=${term}`)
+	// }
 
-	function onSearchCountry(items, term) {
-		if (term.length === 0) {
-			return items
-		}
-		return items?.filter(
-			(item) => item.title.toLowerCase().indexOf(term.toLowerCase()) > -1
-		)
-	}
+	// function onSearchCountry(items, term) {
+	// 	if (term.length === 0) {
+	// 		return items
+	// 	}
+	// 	return items?.filter(
+	// 		(item) => item.title.toLowerCase().indexOf(term.toLowerCase()) > -1
+	// 	)
+	// }
 
-	const countries = onSearchCountry(locations, termCountry)?.map((item) => (
-		<span
-			key={item.code}
-			onClick={(e) => {
-				toggleSelectCountry(e.target.getAttribute('data-code'))
-				setOpenCountry(false)
-				document.location.reload()
-			}}
-			ref={item.code === currentLocation.code ? countryRef : null}
-			data-code={item.code}
-			className={item.code === currentLocation.code ? 'active' : ''}
-		>
-			{item.title}
-		</span>
-	))
+	// const countries = onSearchCountry(locations, termCountry)?.map((item) => (
+	// 	<span
+	// 		key={item.code}
+	// 		onClick={(e) => {
+	// 			toggleSelectCountry(e.target.getAttribute('data-code'))
+	// 			setOpenCountry(false)
+	// 			document.location.reload()
+	// 		}}
+	// 		ref={item.code === currentLocation.code ? countryRef : null}
+	// 		data-code={item.code}
+	// 		className={item.code === currentLocation.code ? 'active' : ''}
+	// 	>
+	// 		{item.title}
+	// 	</span>
+	// ))
 
 	const handleCart = () => {
 		dispatch(cartHandler())
@@ -126,8 +129,8 @@ const Navigation = () => {
 	}
 
 	useEffect(() => {
-		dispatch(setLocationCode(countriesApi?.current?.code))
 		dispatch(setLocation(countriesApi?.current?.title))
+		dispatch(setLocationCode(countriesApi?.current?.code))
 	}, [countriesIsLoading])
 
 	return (
@@ -156,7 +159,7 @@ const Navigation = () => {
 									onChange={(e) => setTermCountry(e.target.value)}
 									placeholder='Search country'
 								/>
-								{countries}
+								{/* {countries} */}
 							</div>
 						</div>
 						{/*<div className={openNetworks ? 'networks active' : 'networks'}*/}
@@ -210,7 +213,7 @@ const Navigation = () => {
 									{languages.map((item) => (
 										<span
 											onClick={() => {
-												onChangeLang(item.lang, item.label)
+												// onChangeLang(item.lang, item.label)
 												setOpenLanguage(false)
 											}}
 											key={item.lang}
@@ -231,7 +234,11 @@ const Navigation = () => {
 						<Link to='/' className='header__logo'>
 							<img src={logo} alt='Dastyor Online Shop' />
 						</Link>
-						<Search term={term} setTerm={setTerm} onSubmit={onSubmit} />
+						<Search
+							term={term}
+							setTerm={setTerm}
+							// onSubmit={onSubmit}	
+						/>
 						<div className='user__actions'>
 							<div onClick={handleFav}>
 								<span data-quantity={favouritesTotalCount}>
